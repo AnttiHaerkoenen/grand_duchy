@@ -25,7 +25,7 @@ def get_frequency(
 if __name__ == '__main__':
     data = '../../data/raw'
     rule = '*.txt'
-    words = {'korv': 'korv', 'storfurstedömet': '[Ss]torfurstendömet'}
+    words = {'storfurste': '[Ss]torfurst', 'storfurstedömet': '[Ss]torfurstendöme'}
     freq = get_frequency(
         data=data,
         rule=rule,
