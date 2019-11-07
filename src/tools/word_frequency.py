@@ -3,15 +3,17 @@ import re
 
 import pandas as pd
 
-from src.tools.utils import text_file_generator
+from src.tools.utils import text_file_generator, read_word_list
 
 
 def get_frequency(
         data: str,
         rule: str,
-        words: dict,
+        wordlist: str,
 ):
     texts = text_file_generator(data, rule)
+    words = read_word_list(wordlist)
+    print(words)
     regex = {word: re.compile(regexpr) for word, regexpr in words.items()}
     rows = []
     for file, text in texts:
@@ -23,13 +25,13 @@ def get_frequency(
 
 
 if __name__ == '__main__':
-    data = '../../data/raw'
+    data = '../../data/raw/'
     rule = '*.txt'
-    words = {'storfurste': '[Ss]torfurst', 'storfurstedömet': '[Ss]torfurstendöme'}
+    words = '../../wordlists/wordlist_riksdag.csv'
     freq = get_frequency(
         data=data,
         rule=rule,
-        words=words,
+        wordlist=words,
     )
-    print(freq.sort_values(by='storfurstedömet'))
+    # print(freq.sort_values(by='storfurstedömet'))
     print(freq.sum())
