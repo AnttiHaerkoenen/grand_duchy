@@ -10,7 +10,7 @@ def text_file_generator(
         raise ValueError(f"Specified data path {str(fp)} does not exist")
     for file in fp.rglob(rule):
         text = file.read_text()
-        yield text
+        yield str(file), text
 
 
 if __name__ == '__main__':
