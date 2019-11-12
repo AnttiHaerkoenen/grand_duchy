@@ -13,7 +13,11 @@ def get_frequency(
 ):
     texts = text_file_generator(data, rule)
     words = read_word_list(wordlist)
-    regex = {word: re.compile(regexpr, flags=re.IGNORECASE) for word, regexpr in words.items()}
+    regex = {
+        word: re.compile(regexpr, flags=re.IGNORECASE)
+        for word, regexpr
+        in words.items()
+    }
     rows = []
     for file, text in texts:
         row = {'file': file, 'words': len(text)}
