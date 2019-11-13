@@ -33,7 +33,6 @@ def get_kwic(
                 context = text[start:end].replace('\n', ' ')
                 row = {'file': file, 'keyword': w, 'context': context}
                 rows.append(row)
-                print(row['context'])
     return pd.DataFrame(rows).sort_values('keyword')
 
 
@@ -47,4 +46,4 @@ if __name__ == '__main__':
         wordlist=words,
         window_size=150,
     )
-    print(kwic)
+    kwic.to_csv('../../data/processed/kwic_riksdag_storfurst.csv')
