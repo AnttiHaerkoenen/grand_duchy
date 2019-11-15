@@ -20,7 +20,10 @@ def get_frequency(
     }
     rows = []
     for file, text in texts:
-        row = {'file': file, 'words': len(text)}
+        row = {
+            'file': file,
+            'words': len(re.findall(r'\w+', text))
+        }
         for w, r in regex.items():
             row[w] = len(r.findall(text))
         rows.append(row)
