@@ -3,7 +3,7 @@ import subprocess
 
 
 def remove_whitespaces(directory):
-    directory = os.path.expanduser(directory)
+    directory = os.path.expandvars(os.path.expanduser(directory))
     os.chdir(directory)
     for fname in os.listdir(directory):
         if fname.find(" ") >= 0:
