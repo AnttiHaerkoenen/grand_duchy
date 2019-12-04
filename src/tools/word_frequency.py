@@ -62,10 +62,11 @@ if __name__ == '__main__':
         bins_file=bins,
         wordlist=words,
     )
-    abs.to_csv('../../data/processed/frequencies_riksdag_all_abs.csv')
+    year = [y.split('-')[0] for y in abs.index]
+    abs['year'] = year
     words = abs['words']
-    freq = abs.drop(columns=['words'])
+    abs.to_csv('../../data/processed/frequencies_riksdag_all_abs.csv')
+    freq = abs.drop(columns=['year', 'words'])
     freq = freq[freq.columns].div(words, axis='index') * 100_000
-    freq['year'] = [y.split('-')[0] for y in freq.index]
     print(freq)
     freq.to_csv('../../data/processed/frequencies_riksdag_all.csv')
