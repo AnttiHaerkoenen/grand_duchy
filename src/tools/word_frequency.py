@@ -68,5 +68,6 @@ if __name__ == '__main__':
     abs.to_csv('../../data/processed/frequencies_riksdag_all_abs.csv')
     freq = abs.drop(columns=['year', 'words'])
     freq = freq[freq.columns].div(words, axis='index') * 100_000
+    freq['year'] = year
     print(freq)
     freq.to_csv('../../data/processed/frequencies_riksdag_all.csv')
