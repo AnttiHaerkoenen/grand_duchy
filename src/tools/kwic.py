@@ -13,26 +13,41 @@ def get_kwic(
 ):
     texts = text_file_generator(data, rule)
     words = read_word_list(wordlist)
+
     regex = {
         word: re.compile(regexpr, flags=re.IGNORECASE)
         for word, regexpr
         in words.items()
     }
+
     rows = []
+    year_regex = re.compile(r'\b\d{4}\b')
+
     for file, text in texts:
+        year = year_regex.findall(file)[0]
         for w, r in regex.items():
             matches = r.finditer(text)
+
             for m in matches:
                 start, end = m.span()
                 start = start - window_size
                 if start < 0:
                     start = 0
+
                 end = end + window_size
+
                 if end >= len(text):
                     end = len(text) - 1
+
                 context = text[start:end].replace('\n', ' ')
-                row = {'file': file, 'keyword': w, 'context': context}
+                row = {
+                    'file': file,
+                    'year': year,
+                    'keyword': w,
+                    'context': context,
+                }
                 rows.append(row)
+
     return pd.DataFrame(rows).sort_values('keyword')
 
 
