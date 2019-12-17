@@ -19,7 +19,7 @@ def get_frequency(
         in words.items()
     }
     rows = []
-    for file, text in texts:
+    for file, _, text in texts:
         row = {
             'file': file,
             'words': len(re.findall(r'\w+', text))
@@ -37,18 +37,23 @@ def get_frequency_by_year(
 ):
     frequencies = []
     bins = pd.read_csv(bins_file)
-    for b in bins['name']:
+    for year, bin in bins.itertuples(index=False):
         freq = get_frequency(
             data=data,
-            rule=f"*{b}*.txt",
+            rule=f"*{bin}*.txt",
             wordlist=wordlist,
         )
+
         if freq.empty:
             continue
+
         freq = freq.drop(columns=['file'])
         freq = freq.sum()
-        freq.name = b
+
+        freq.name = bin
+        freq['year'] = year
         frequencies.append(freq)
+
     result = pd.concat(frequencies, axis=1).T
     return result
 
@@ -57,17 +62,16 @@ if __name__ == '__main__':
     data = '../../data/raw/'
     words = '../../wordlists/wordlist_riksdag.csv'
     bins = '../../wordlists/riksdag_bins.csv'
+
     abs = get_frequency_by_year(
         data=data,
         bins_file=bins,
         wordlist=words,
     )
-    year = [y.split('-')[0] for y in abs.index]
-    abs['year'] = year
+
     words = abs['words']
     abs.to_csv('../../data/processed/frequencies_riksdag_all_abs.csv')
     freq = abs.drop(columns=['year', 'words'])
     freq = freq[freq.columns].div(words, axis='index') * 100_000
-    freq['year'] = year
-    print(freq)
+    freq['year'] = abs['year']
     freq.to_csv('../../data/processed/frequencies_riksdag_all.csv')

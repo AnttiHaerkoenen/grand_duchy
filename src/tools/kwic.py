@@ -21,10 +21,8 @@ def get_kwic(
     }
 
     rows = []
-    year_regex = re.compile(r'\b\d{4}\b')
 
-    for file, text in texts:
-        year = year_regex.findall(file)[0]
+    for file, year, text in texts:
         for w, r in regex.items():
             matches = r.finditer(text)
 

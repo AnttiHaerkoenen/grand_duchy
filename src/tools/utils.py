@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 import pandas as pd
 
@@ -8,11 +9,14 @@ def text_file_generator(
         rule: str,
 ):
     fp = Path(data)
+
     if not fp.exists():
         raise ValueError(f"Specified data path {str(fp)} does not exist")
-    for file in fp.rglob(rule):
-        text = file.read_text()
-        yield str(file), text
+
+    for path in fp.rglob(rule):
+        text = path.read_text()
+        year = re.findall(r'\d{4}', path.name)[0]
+        yield str(path), year, text
 
 
 def read_word_list(file):
