@@ -5,13 +5,17 @@ import dash_table
 from dash.dependencies import Output, Input
 import pandas as pd
 
-kwic_data = pd.read_csv('../../data/processed/kwic_riksdag_storfurst.csv')
 freg_data_abs = pd.read_csv('../../data/processed/frequencies_riksdag_all_abs.csv')
-freq_data = pd.read_csv('../../data/processed/frequencies_riksdag_all.csv')
+freq_data = pd.read_csv('../../data/processed/frequencies_riksdag_all.csv', encoding='utf-8')
+
+keywords = set(freq_data.columns) - {'year', 'Unnamed: 0'}
+
+kwic_data = [pd.read_csv(f'../../data/processed/kwic_riksdag_{kw}.csv') for kw in keywords]
+kwic_data = pd.concat(kwic_data)
 
 app = dash.Dash(__name__)
 
-options = [{'label': k, 'value': k} for k in set(kwic_data['keyword'])]
+options = [{'label': k, 'value': k} for k in keywords]
 
 app.layout = html.Div(children=[
     html.H2(children='Keyword'),

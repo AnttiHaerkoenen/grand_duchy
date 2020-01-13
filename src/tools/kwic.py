@@ -53,10 +53,13 @@ if __name__ == '__main__':
     data = '../../data/raw/'
     words = '../../wordlists/wordlist_riksdag.csv'
     bins = '../../wordlists/riksdag_bins.csv'
+
     kwic = get_kwic(
         data=data,
         rule='*.txt',
         wordlist=words,
         window_size=150,
     )
-    kwic.to_csv('../../data/processed/kwic_riksdag_storfurst.csv')
+
+    for word in read_word_list(words):
+        kwic[kwic['keyword'].isin([word])].to_csv(f'../../data/processed/kwic_riksdag_{word}.csv')
