@@ -30,5 +30,5 @@ if __name__ == '__main__':
 
     # print(f"1820-1840: {get_closest_words(model_1820, 'valtio'.split(), 10)}")
     # print(f"1840-1860: {get_closest_words(model_1840, 'valtio'.split(), 10)}")
-    print(f"1860-1880: \n {get_closest_words(model_1860, 'valtio'.split(' '), 100)}")
-    print(f"1880-1900: \n {get_closest_words(model_1880, 'valtio'.split(' '), 100)}")
+    print(f"1860-1880: \n {get_closest_words(model_1860, 'valtio'.split(' '), 50)}")
+    print(f"1880-1900: \n {get_closest_words(model_1880, 'valtio'.split(' '), 50)}")
