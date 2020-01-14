@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import pandas as pd
 import gensim
 
 
@@ -9,7 +10,10 @@ def get_closest_words(
         topn: int,
 ):
     closest = model.wv.most_similar(*words, topn=topn)
-    return [t[0] for t in closest]
+
+    result = pd.DataFrame(closest, columns="words similarity".split())
+
+    return result
 
 
 if __name__ == '__main__':
@@ -24,7 +28,7 @@ if __name__ == '__main__':
     print(model_1860.wv.similarity('keisari', 'suuriruhtinas'))
     print(model_1880.wv.similarity('keisari', 'suuriruhtinas'))
 
-    print(f"1820-1840: {' '.join(get_closest_words(model_1820, 'kansa'.split(), 10))}")
-    print(f"1840-1860: {' '.join(get_closest_words(model_1840, 'kansa'.split(), 10))}")
-    print(f"1860-1880: {' '.join(get_closest_words(model_1860, 'kansa'.split(), 10))}")
-    print(f"1880-1900: {' '.join(get_closest_words(model_1880, 'kansa'.split(), 10))}")
+    # print(f"1820-1840: {get_closest_words(model_1820, 'valtio'.split(), 10)}")
+    # print(f"1840-1860: {get_closest_words(model_1840, 'valtio'.split(), 10)}")
+    print(f"1860-1880: \n {get_closest_words(model_1860, 'valtio'.split(' '), 100)}")
+    print(f"1880-1900: \n {get_closest_words(model_1880, 'valtio'.split(' '), 100)}")
