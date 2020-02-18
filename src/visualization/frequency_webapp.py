@@ -15,6 +15,8 @@ kwic_data = pd.concat(kwic_data)
 
 app = dash.Dash(__name__)
 
+server = app.server
+
 options = [{'label': k, 'value': k} for k in keywords]
 
 app.layout = html.Div(children=[
