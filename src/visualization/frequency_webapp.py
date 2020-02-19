@@ -14,6 +14,7 @@ kwic_data = [pd.read_csv(f'../../data/processed/kwic_riksdag_{kw}.csv') for kw i
 kwic_data = pd.concat(kwic_data)
 
 app = dash.Dash(__name__)
+app.title = "Riksdag"
 
 server = app.server
 
