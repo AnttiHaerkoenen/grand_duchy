@@ -9,16 +9,16 @@ import pandas as pd
 
 data_dir = Path('../../data/processed')
 
-freg_data_abs = pd.read_csv(data_dir / 'frequencies_riksdag_all_abs.csv')
-freq_data = pd.read_csv(data_dir / 'frequencies_riksdag_all.csv', encoding='utf-8')
+freg_data_abs = pd.read_csv(data_dir / '.csv')
+freq_data = pd.read_csv(data_dir / '.csv', encoding='utf-8')
 
 keywords = set(freq_data.columns) - {'year', 'Unnamed: 0'}
 
-kwic_data = [pd.read_csv(data_dir / f'kwic_riksdag_{kw}.csv') for kw in keywords]
+kwic_data = [pd.read_csv(data_dir / f'{kw}.csv') for kw in keywords]
 kwic_data = pd.concat(kwic_data)
 
 app = dash.Dash(__name__)
-app.title = "Riksdag"
+app.title = "Sanomalehdet"
 
 server = app.server
 

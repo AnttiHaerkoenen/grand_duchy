@@ -53,6 +53,7 @@ def make_close_words_lists(
 
 if __name__ == '__main__':
     model_dir = Path('../../models/SGNS_UPDATE')
+    wordlist_dir = Path('../../wordlists')
 
     years = list(range(1740, 1901, 20))
 
@@ -63,8 +64,8 @@ if __name__ == '__main__':
     }
 
     make_close_words_lists(
-        input_file=Path('../../wordlists/seed_words.csv'),
+        input_file=Path(wordlist_dir / 'seed_words.csv'),
         input_column='Swedish',
-        output_dir=Path('../../wordlists/sv_close_words'),
+        output_dir=Path(wordlist_dir / 'sv_close_words'),
         models=models,
     )
