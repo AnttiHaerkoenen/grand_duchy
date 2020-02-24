@@ -20,7 +20,7 @@ def text_file_generator(
 
 
 def read_word_list(file):
-    data = pd.read_csv(file, header=None)
+    data = pd.read_csv(str(file), header=None)
     data.columns = 'word regex'.split()
     words = data['word']
     regex = data['regex']
