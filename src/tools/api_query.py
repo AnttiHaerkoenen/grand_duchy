@@ -53,6 +53,32 @@ def query(
     return freq, kwic
 
 
+def query_totals(
+        url: str,
+        corpora: dict,
+):
+    query_params = {
+        'command': 'info',
+        'corpus': ','.join(corpora.values()),
+    }
+
+    req = requests.get(
+        url,
+        headers=headers,
+        timeout=60,
+        params=query_params,
+    )
+    corpora_info = req.json()['corpora']
+    flipped_corpora = {v: k for k, v in corpora.items()}
+    totals = {
+        flipped_corpora.get(c, None): int(v['info']['Size'])
+        for c, v
+        in corpora_info.items()
+    }
+
+    return totals
+
+
 def save_frequencies(
         regex_dict: dict,
         output_dir: Path,
@@ -92,8 +118,15 @@ def save_frequencies(
     data_lemma = pd.DataFrame.from_dict(freqs_lemma)
     data_regex = pd.DataFrame.from_dict(freqs_regex)
 
-    data_lemma.to_csv(output_dir / 'frequencies_FI_newspapers_lemma.csv')
-    data_regex.to_csv(output_dir / 'frequencies_FI_newspapers_regex.csv')
+    data_totals = pd.Series(query_totals(korp_url, corpora)).sort_index()
+
+    data_lemma_relative = data_lemma.div(data_totals, axis=0) * 100_000
+    data_regex_relative = data_regex.div(data_totals, axis=0) * 100_000
+
+    data_lemma.to_csv(output_dir / 'frequencies_FI_newspapers_lemma_abs.csv')
+    data_regex.to_csv(output_dir / 'frequencies_FI_newspapers_regex_abs.csv')
+    data_lemma_relative.to_csv(output_dir / 'frequencies_FI_newspapers_lemma.csv')
+    data_regex_relative.to_csv(output_dir / 'frequencies_FI_newspapers_regex.csv')
 
 
 if __name__ == '__main__':
