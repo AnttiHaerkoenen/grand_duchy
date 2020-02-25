@@ -25,9 +25,15 @@ def get_closest_words(
 def make_closest_words_table(
         word_data: dict,
 ) -> pd.DataFrame:
-
-    df = pd.DataFrame.from_dict(word_data)
-    df = df.applymap(lambda e: e[0])
+    words = [
+        pd.DataFrame.from_records(
+            data,
+            columns=[model, model + '_d']
+        )
+        for model, data
+        in word_data.items()
+    ]
+    df = pd.concat(words, axis=0)
 
     return df
 
@@ -37,6 +43,7 @@ def make_close_words_lists(
         input_column: str,
         output_dir: Path,
         models: dict,
+        **kwargs
 ) -> None:
     words = pd.read_csv(str(input_file))[input_column]
     words = [w.casefold() for w in words]
@@ -44,6 +51,7 @@ def make_close_words_lists(
     closest_words = get_closest_words(
         models=models,
         words=words,
+        **kwargs
     )
 
     for w, d in closest_words.items():
@@ -64,8 +72,10 @@ if __name__ == '__main__':
     }
 
     make_close_words_lists(
-        input_file=Path(wordlist_dir / 'seed_words.csv'),
+        input_file=wordlist_dir / 'seed_words.csv',
         input_column='Swedish',
-        output_dir=Path(wordlist_dir / 'sv_close_words'),
+        output_dir=wordlist_dir / 'sv_close_words',
         models=models,
+        min_similarity=0,
+        max_n=100,
     )
