@@ -84,7 +84,7 @@ def update_graph(
     else:
         data = freq_regex_data
 
-    x = data.index
+    x = data['year']
     y = data[keyword]
 
     return {

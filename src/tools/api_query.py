@@ -123,6 +123,11 @@ def save_frequencies(
     data_lemma_relative = data_lemma.div(data_totals, axis=0) * 100_000
     data_regex_relative = data_regex.div(data_totals, axis=0) * 100_000
 
+    data_lemma['year'] = data_lemma.index
+    data_regex['year'] = data_regex.index
+    data_lemma_relative['year'] = data_lemma_relative.index
+    data_regex_relative['year'] = data_regex_relative.index
+
     data_lemma.to_csv(output_dir / 'frequencies_FI_newspapers_lemma_abs.csv')
     data_regex.to_csv(output_dir / 'frequencies_FI_newspapers_regex_abs.csv')
     data_lemma_relative.to_csv(output_dir / 'frequencies_FI_newspapers_lemma.csv')
