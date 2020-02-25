@@ -9,13 +9,12 @@ import pandas as pd
 
 data_dir = Path('../../data/processed')
 
-freg_data_abs = pd.read_csv(data_dir / '.csv')
-freq_data = pd.read_csv(data_dir / '.csv', encoding='utf-8')
+freq_lemma_data = pd.read_csv(data_dir / 'frequencies_FI_newspapers_lemma.csv')
+freg_lemma_data_abs = pd.read_csv(data_dir / 'frequencies_FI_newspapers_lemma_abs.csv')
+freq_regex_data = pd.read_csv(data_dir / 'frequencies_FI_newspapers_regex.csv')
+freg_regex_data_abs = pd.read_csv(data_dir / 'frequencies_FI_newspapers_regex_abs.csv')
 
-keywords = set(freq_data.columns) - {'year', 'Unnamed: 0'}
-
-kwic_data = [pd.read_csv(data_dir / f'{kw}.csv') for kw in keywords]
-kwic_data = pd.concat(kwic_data)
+keywords = set(freq_lemma_data.columns) - {'year', 'Unnamed: 0'}
 
 app = dash.Dash(__name__)
 app.title = "Sanomalehdet"
@@ -39,48 +38,53 @@ app.layout = html.Div(children=[
     html.Div([
         dcc.RadioItems(
             id='abs-picker',
-            options=[{'label': i.capitalize(), 'value': i} for i in ['absolute', 'relative']],
+            options=[
+                {'label': i.capitalize(), 'value': i}
+                for i in ['absolute', 'relative']
+            ],
             value='absolute',
             labelStyle={'display': 'inline-block'}
         ),
     ]),
 
+    html.H2(children='Lemma'),
+    html.Div([
+        dcc.RadioItems(
+            id='lemma-picker',
+            options=[
+                {'label': i.capitalize(), 'value': i}
+                for i in ['lemma', 'regex']
+            ],
+            value='regex',
+            labelStyle={'display': 'inline-block'}
+        ),
+    ]),
+
     dcc.Graph(id='bar-plot'),
-
-    html.H2(children='Keywords in context'),
-
-    dash_table.DataTable(
-        id='kwic-table',
-        columns=[
-            {'name': col.capitalize(), 'id': col} for col in ['context', 'file']
-        ],
-        style_data={
-            'whiteSpace': 'normal',
-            'height': 'auto',
-            'text-align': 'left',
-        },
-        style_header={
-            'text-align': 'left',
-        }
-    ),
 ])
 
 
 @app.callback(
     Output('bar-plot', 'figure'),
     [Input('keyword-picker', 'value'),
-     Input('abs-picker', 'value')]
+     Input('abs-picker', 'value'),
+     Input('lemma-picker', 'value')]
 )
 def update_graph(
         keyword,
         abs_or_rel,
+        lemma_or_regex,
 ):
-    if abs_or_rel == 'absolute':
-        data = freg_data_abs
+    if abs_or_rel == 'absolute' and lemma_or_regex == 'lemma':
+        data = freg_lemma_data_abs
+    elif abs_or_rel == 'relative' and lemma_or_regex == 'lemma':
+        data = freq_lemma_data
+    elif abs_or_rel == 'absolute' and lemma_or_regex == 'regex':
+        data = freg_regex_data_abs
     else:
-        data = freq_data
+        data = freq_regex_data
 
-    x = data['year']
+    x = data.index
     y = data[keyword]
 
     return {
@@ -91,29 +95,6 @@ def update_graph(
             'name': keyword,
         }]
     }
-
-
-@app.callback(
-    Output('kwic-table', 'data'),
-    [Input('keyword-picker', 'value'),
-     Input('bar-plot', 'selectedData')]
-)
-def update_table(
-        keyword,
-        selection,
-):
-    if selection is None:
-        points = []
-    else:
-        points = selection.get('points', [])
-
-    years = [point['x'] for point in points]
-    data = kwic_data[(kwic_data['keyword'] == keyword)]
-
-    if 0 < len(years):
-        data = data[data['year'].isin(years)]
-
-    return data.to_dict('records')
 
 
 if __name__ == '__main__':
