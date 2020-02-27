@@ -33,7 +33,14 @@ def make_closest_words_table(
         for model, data
         in word_data.items()
     ]
-    df = pd.concat(words, axis=0)
+
+    df = pd.concat(
+        words,
+        axis=1,
+        sort=False,
+    )
+
+    df = df.applymap(lambda e: round(e, 3) if isinstance(e, float) else e)
 
     return df
 
