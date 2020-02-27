@@ -1,5 +1,6 @@
 import nltk
 import re
+from pathlib import Path
 
 import pandas as pd
 
@@ -59,9 +60,10 @@ def get_frequency_by_year(
 
 
 if __name__ == '__main__':
-    data = '../../data/raw/'
-    words = '../../wordlists/wordlist_riksdag.csv'
-    bins = '../../wordlists/riksdag_bins.csv'
+    data = Path('../../data/raw/')
+    words = Path('../../wordlists/wordlist_riksdag.csv')
+    bins = Path('../../wordlists/riksdag_bins.csv')
+    output = Path('../../data/processed')
 
     abs = get_frequency_by_year(
         data=data,
@@ -70,8 +72,8 @@ if __name__ == '__main__':
     )
 
     words = abs['words']
-    abs.to_csv('../../data/processed/frequencies_riksdag_all_abs.csv')
+    abs.to_csv(output / 'frequencies_riksdag_all_abs.csv')
     freq = abs.drop(columns=['year', 'words'])
     freq = freq[freq.columns].div(words, axis='index') * 100_000
     freq['year'] = abs['year']
-    freq.to_csv('../../data/processed/frequencies_riksdag_all.csv')
+    freq.to_csv(output / 'frequencies_riksdag_all.csv')
