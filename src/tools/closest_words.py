@@ -16,6 +16,7 @@ def get_closest_words(
 
     for name, model in models.items():
         for w in words:
+            print(f"Analysing word '{w}' ({name})")
             if w in model.wv:
                 closest = model.wv.most_similar(w, topn=max_n)
                 results[w][name] = [t for t in closest if t[1] >= min_similarity]
@@ -63,29 +64,60 @@ def make_close_words_lists(
     )
 
     for w, d in closest_words.items():
+        if not d:
+            continue
+
         table = make_closest_words_table(d)
         table.to_csv(str(output_dir / f'closest_{w}.csv'))
 
 
 if __name__ == '__main__':
-    model_dir = Path('../../models/SGNS_UPDATE')
+    model_dir = Path('../../models')
     wordlist_dir = Path('../../wordlists')
 
-    years = list(range(1740, 1901, 20))
-
-    models = {
+    sv_models = {
         f'sv_{year}': gensim.models.Word2Vec.load(
-            str(model_dir / 'sv' / f'sv_{year}.w2v')
+            str(model_dir / 'SGNS_UPDATE' / 'sv' / f'sv_{year}.w2v')
         )
         for year
-        in years
+        in list(range(1740, 1901, 20))
+    }
+    fi_models = {
+        f'fi_{year}': gensim.models.Word2Vec.load(
+            str(model_dir / 'SGNS_UPDATE' / 'fi' / f'fi_{year}.w2v')
+        )
+        for year
+        in list(range(1820, 1881, 20))
+    }
+    en_models = {
+        f'en_{year}': gensim.models.Word2Vec.load(
+            str(model_dir / 'SGNS_ALIGN' / 'en' / f'en_{year}.w2v')
+        )
+        for year
+        in list(range(1620, 1941, 20))
     }
 
     make_close_words_lists(
         input_file=wordlist_dir / 'seed_words.csv',
+        input_column='English',
+        output_dir=wordlist_dir / 'en_close_words',
+        models=en_models,
+        min_similarity=0,
+        max_n=100,
+    )
+    make_close_words_lists(
+        input_file=wordlist_dir / 'seed_words.csv',
         input_column='Swedish',
         output_dir=wordlist_dir / 'sv_close_words',
-        models=models,
+        models=sv_models,
+        min_similarity=0,
+        max_n=100,
+    )
+    make_close_words_lists(
+        input_file=wordlist_dir / 'seed_words.csv',
+        input_column='Finnish',
+        output_dir=wordlist_dir / 'fi_close_words',
+        models=fi_models,
         min_similarity=0,
         max_n=100,
     )
