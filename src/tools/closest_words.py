@@ -55,7 +55,7 @@ def make_close_words_lists(
         **kwargs
 ) -> None:
     words = pd.read_csv(str(input_file))[input_column]
-    words = {w.casefold() for w in words.dropna()}
+    words = {w.casefold().strip('-') for w in words.dropna()}
 
     closest_words = get_closest_words(
         models=models,
@@ -94,7 +94,7 @@ if __name__ == '__main__':
             str(model_dir / 'SGNS_ALIGN' / 'en' / f'en_{year}.w2v')
         )
         for year
-        in list(range(1620, 1941, 20))
+        in list(range(1700, 1901, 20))
     }
 
     make_close_words_lists(
