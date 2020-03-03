@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Iterable, Mapping
 
 import pandas as pd
 import gensim
@@ -6,8 +7,8 @@ import gensim
 
 def get_closest_words(
         *,
-        models: dict,
-        words: list,
+        models: Mapping,
+        words: Iterable,
         min_similarity: float = 0,
         max_n: int = 10,
 ) -> dict:
@@ -23,7 +24,7 @@ def get_closest_words(
 
 
 def make_closest_words_table(
-        word_data: dict,
+        word_data: Mapping,
 ) -> pd.DataFrame:
     words = [
         pd.DataFrame.from_records(
@@ -49,11 +50,11 @@ def make_close_words_lists(
         input_file: Path,
         input_column: str,
         output_dir: Path,
-        models: dict,
+        models: Mapping,
         **kwargs
 ) -> None:
     words = pd.read_csv(str(input_file))[input_column]
-    words = [w.casefold() for w in words]
+    words = {w.casefold() for w in words.dropna()}
 
     closest_words = get_closest_words(
         models=models,
@@ -73,7 +74,9 @@ if __name__ == '__main__':
     years = list(range(1740, 1901, 20))
 
     models = {
-        f'sv_{year}': gensim.models.Word2Vec.load(str(model_dir / 'sv' / f'sv_{year}.w2v'))
+        f'sv_{year}': gensim.models.Word2Vec.load(
+            str(model_dir / 'sv' / f'sv_{year}.w2v')
+        )
         for year
         in years
     }
