@@ -7,14 +7,14 @@ import gensim
 
 def get_closest_words(
         *,
-        models: Mapping,
+        models: Iterable,
         words: Iterable,
         min_similarity: float = 0,
         max_n: int = 10,
 ) -> dict:
     results = {w: {} for w in words}
 
-    for name, model in models.items():
+    for name, model in models:
         for w in words:
             print(f"Analysing word '{w}' ({name})")
             if w in model.wv:
@@ -51,7 +51,7 @@ def make_close_words_lists(
         input_file: Path,
         input_column: str,
         output_dir: Path,
-        models: Mapping,
+        models: Iterable,
         **kwargs
 ) -> None:
     words = pd.read_csv(str(input_file))[input_column]
@@ -75,27 +75,27 @@ if __name__ == '__main__':
     model_dir = Path('../../models')
     wordlist_dir = Path('../../wordlists')
 
-    sv_models = {
-        f'sv_{year}': gensim.models.Word2Vec.load(
+    en_models = (
+        (f'en_{year}', gensim.models.Word2Vec.load(
+            str(model_dir / 'SGNS_ALIGN' / 'en' / f'en_{year}.w2v')
+        ))
+        for year
+        in list(range(1620, 1941, 20))
+    )
+    sv_models = (
+        (f'sv_{year}', gensim.models.Word2Vec.load(
             str(model_dir / 'SGNS_UPDATE' / 'sv' / f'sv_{year}.w2v')
-        )
+        ))
         for year
         in list(range(1740, 1901, 20))
-    }
-    fi_models = {
-        f'fi_{year}': gensim.models.Word2Vec.load(
+    )
+    fi_models = (
+        (f'fi_{year}', gensim.models.Word2Vec.load(
             str(model_dir / 'SGNS_UPDATE' / 'fi' / f'fi_{year}.w2v')
-        )
+        ))
         for year
         in list(range(1820, 1881, 20))
-    }
-    en_models = {
-        f'en_{year}': gensim.models.Word2Vec.load(
-            str(model_dir / 'SGNS_ALIGN' / 'en' / f'en_{year}.w2v')
-        )
-        for year
-        in list(range(1700, 1901, 20))
-    }
+    )
 
     make_close_words_lists(
         input_file=wordlist_dir / 'seed_words.csv',
