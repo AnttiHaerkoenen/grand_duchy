@@ -38,10 +38,11 @@ def get_frequency_by_year(
 ):
     frequencies = []
     bins = pd.read_csv(bins_file)
+
     for year, bin in bins.itertuples(index=False):
         freq = get_frequency(
             data=data,
-            rule=f"*{bin}*.txt",
+            rule=f"*_{bin}_*.txt",
             wordlist=wordlist,
         )
 
