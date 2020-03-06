@@ -62,9 +62,10 @@ if __name__ == '__main__':
         data=data,
         rule='*.txt',
         wordlist=words,
-        window_size=10,
+        window_size=50,
     )
 
     for word in read_word_list(words):
+        print(f'Saving data ({word})')
         word_data = kwic[kwic['keyword'].isin([word])]
-        word_data.to_csv(str(data / 'processed' / f'kwic_riksdag_{word}.csv'))
+        word_data.to_csv(data / 'processed' / f'kwic_riksdag_{word}.csv')

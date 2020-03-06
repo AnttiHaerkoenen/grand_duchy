@@ -14,9 +14,6 @@ freq_data = pd.read_csv(data_dir / 'frequencies_riksdag_all.csv', encoding='utf-
 
 keywords = set(freq_data.columns) - {'year', 'Unnamed: 0'}
 
-kwic_data = [pd.read_csv(data_dir / f'kwic_riksdag_{kw}.csv') for kw in keywords]
-kwic_data = pd.concat(kwic_data)
-
 app = dash.Dash(__name__)
 app.title = "Riksdag"
 
@@ -108,7 +105,7 @@ def update_table(
         points = selection.get('points', [])
 
     years = [point['x'] for point in points]
-    data = kwic_data[(kwic_data['keyword'] == keyword)]
+    data = pd.read_csv(data_dir / f'kwic_riksdag_{keyword}.csv')
 
     if 0 < len(years):
         data = data[data['year'].isin(years)]
