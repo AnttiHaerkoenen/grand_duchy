@@ -1,4 +1,6 @@
+import os
 import re
+from pathlib import Path
 
 import pandas as pd
 
@@ -23,6 +25,8 @@ def get_kwic(
     rows = []
 
     for file, year, text in texts:
+        print(f'Processing file {file}')
+
         for w, r in regex.items():
             matches = r.finditer(text)
 
@@ -39,7 +43,7 @@ def get_kwic(
 
                 context = text[start:end].replace('\n', ' ')
                 row = {
-                    'file': file,
+                    'file': os.path.split(file)[1],
                     'year': year,
                     'keyword': w,
                     'context': context,
@@ -50,16 +54,17 @@ def get_kwic(
 
 
 if __name__ == '__main__':
-    data = '../../data/raw/'
-    words = '../../wordlists/wordlist_riksdag.csv'
-    bins = '../../wordlists/riksdag_bins.csv'
+    data = Path('../../data')
+    words = Path('../../wordlists/wordlist_riksdag.csv')
+    bins = Path('../../wordlists/riksdag_bins.csv')
 
     kwic = get_kwic(
         data=data,
         rule='*.txt',
         wordlist=words,
-        window_size=150,
+        window_size=10,
     )
 
     for word in read_word_list(words):
-        kwic[kwic['keyword'].isin([word])].to_csv(f'../../data/processed/kwic_riksdag_{word}.csv')
+        word_data = kwic[kwic['keyword'].isin([word])]
+        word_data.to_csv(str(data / 'processed' / f'kwic_riksdag_{word}.csv'))
