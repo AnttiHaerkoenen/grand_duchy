@@ -22,8 +22,11 @@ def text_file_generator(
 def read_word_list(file):
     data = pd.read_csv(str(file), header=None)
     data.columns = 'word regex'.split()
+    data.dropna(inplace=True)
+
     words = data['word']
     regex = data['regex']
+
     return {w: r for w, r in zip(words, regex)}
 
 
