@@ -25,7 +25,7 @@ def get_kwic(
     rows = []
 
     for file, year, text in texts:
-        print(f'Processing file {file}')
+        print(f'Processing file {file.name}')
 
         for w, r in regex.items():
             matches = r.finditer(text)
@@ -43,7 +43,7 @@ def get_kwic(
 
                 context = text[start:end].replace('\n', ' ')
                 row = {
-                    'file': os.path.split(file)[1],
+                    'file': file.stem,
                     'year': year,
                     'keyword': w,
                     'context': context,

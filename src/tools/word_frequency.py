@@ -14,12 +14,14 @@ def get_frequency(
 ):
     texts = text_file_generator(data, rule)
     words = read_word_list(wordlist)
+
     regex = {
         word: re.compile(regexpr, flags=re.IGNORECASE)
         for word, regexpr
         in words.items()
     }
     rows = []
+
     for file, _, text in texts:
         row = {
             'file': file,
@@ -28,6 +30,7 @@ def get_frequency(
         for w, r in regex.items():
             row[w] = len(r.findall(text))
         rows.append(row)
+
     return pd.DataFrame(rows)
 
 
