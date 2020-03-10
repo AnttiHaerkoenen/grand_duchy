@@ -1,6 +1,7 @@
 English,Swedish,Finnish
 Politics,politik,politiikka
 Grand duchy,storfurstendöme,suuriruhtinaskunta
+,,suuriruhtinaanmaa
 Duchy,furstendöme,ruhtinaskunta
 ,hertigdöme,herttuakunta
 Finland,Finland,Suomi
@@ -18,6 +19,7 @@ Finnish,finsk,suomalainen
 ,finländare,
 ,finska,suomi
 Nation,nation,valtio
+,,kansakunta
 ,folk,kansa
 University,universitet,yliopisto
 Century,sekel,vuosisata
