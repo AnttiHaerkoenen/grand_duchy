@@ -3,14 +3,52 @@ import re
 
 import pandas as pd
 import requests
+from requests.exceptions import ReadTimeout, HTTPError
 
 from src.tools.utils import read_word_list
 
-headers = {
+TIMEOUT = 30
+HEADERS = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '
                   'AppleWebKit/537.36 (KHTML, like Gecko) '
                   'Chrome/53.0.2785.143 Safari/537.36',
 }
+
+
+def make_request(
+        url,
+        query_params,
+):
+    print(f"Making query {query_params.get('cqp', query_params)}")
+
+    for i in range(1, 6):
+        print(f"Attempt {i}")
+
+        try:
+            timeout = TIMEOUT * i
+
+            req = requests.get(
+                url=url,
+                timeout=timeout,
+                headers=HEADERS,
+                params=query_params,
+            )
+            req.raise_for_status()
+            print("Success!")
+            return req.json()
+
+        except ReadTimeout:
+            print("Read timed out")
+            continue
+
+        except HTTPError:
+            print("HTTP Error")
+            continue
+
+    return {
+        'corpus_hits': {},
+        'kwic': [],
+    }
 
 
 def query(
@@ -35,13 +73,7 @@ def query(
     else:
         query_params['cqp'] = f'[word="{regex}"]'
 
-    req = requests.get(
-        url,
-        headers=headers,
-        timeout=60,
-        params=query_params,
-    )
-    result = req.json()
+    result = make_request(url=url, query_params=query_params)
 
     freq = {y: result['corpus_hits'].get(c, None) for y, c in corpora.items()}
 
@@ -62,13 +94,12 @@ def query_totals(
         'corpus': ','.join(corpora.values()),
     }
 
-    req = requests.get(
-        url,
-        headers=headers,
-        timeout=60,
-        params=query_params,
+    result = make_request(
+        url=url,
+        query_params=query_params,
     )
-    corpora_info = req.json()['corpora']
+    corpora_info = result['corpora']
+
     flipped_corpora = {v: k for k, v in corpora.items()}
     totals = {
         flipped_corpora.get(c, None): int(v['info']['Size'])
@@ -156,4 +187,6 @@ if __name__ == '__main__':
         output_dir=output_dir,
         korp_url='https://korp.csc.fi/cgi-bin/korp.cgi',
         corpora=corpora,
+        start=0,
+        end=0,
     )
