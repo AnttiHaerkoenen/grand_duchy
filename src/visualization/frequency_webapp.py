@@ -10,7 +10,7 @@ import pandas as pd
 data_dir = Path('../../data/processed')
 
 freg_data_abs = pd.read_csv(data_dir / 'frequencies_riksdag_all_abs.csv')
-freq_data = pd.read_csv(data_dir / 'frequencies_riksdag_all.csv', encoding='utf-8')
+freq_data = pd.read_csv(data_dir / 'frequencies_riksdag_all.csv')
 
 keywords = set(freq_data.columns) - {'year', 'Unnamed: 0'}
 
