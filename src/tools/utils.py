@@ -28,7 +28,7 @@ def read_word_list(file):
     words = data['word']
     regex = data['regex']
 
-    return {w: r for w, r in zip(words, regex)}
+    return {w.lower(): r for w, r in zip(words, regex)}
 
 
 if __name__ == '__main__':

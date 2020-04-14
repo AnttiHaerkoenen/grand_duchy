@@ -62,7 +62,7 @@ if __name__ == '__main__':
         data=data,
         rule='*.txt',
         wordlist=words,
-        window_size=50,
+        window_size=20,
     )
 
     for word in read_word_list(words):
