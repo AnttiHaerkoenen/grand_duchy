@@ -73,6 +73,6 @@ if __name__ == '__main__':
     )
     make_distance_matrices(
         models=fi_models,
-        word_file=wordlist_dir / 'wordlist_FI_newspapers.csv',
+        word_file=wordlist_dir / 'wordlist_fi_newspapers.csv',
         output_dir=output_dir,
     )

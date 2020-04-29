@@ -7,7 +7,7 @@ from requests.exceptions import ReadTimeout, HTTPError
 
 from src.tools.utils import read_word_list
 
-TIMEOUT = 30
+TIMEOUT = 60
 HEADERS = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '
                   'AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -61,10 +61,14 @@ def query(
         use_lemma: bool = True,
 ) -> tuple:
 
+    structs = 'text_binding_id text_issue_date text_issue_no ' \
+              'text_page_no text_publ_title text_publ_type'.split()
+
     query_params = {
         'command': 'query',
         'start': start,
         'end': end,
+        'show_struct': ','.join(structs),
         'corpus': ','.join(corpora.values()),
     }
 
@@ -77,10 +81,29 @@ def query(
 
     freq = {y: result['corpus_hits'].get(c, None) for y, c in corpora.items()}
 
-    kwic = {}
+    kwic = []
     for hit in result['kwic']:
         context = ' '.join([w['word'] for w in hit['tokens']])
-        kwic[hit['corpus']] = context
+        hit_data = hit.get('structs', dict())
+
+        text_type = hit_data.get('text_publ_type', None)
+        publication = hit_data.get('text_publ_title', None)
+        text_binding_id = hit_data.get('text_binding_id', None)
+        page = hit_data.get('text_page_no', 0)
+
+        url = f'{text_type}/binding/{text_binding_id}?term={word}&page={page}'
+
+        year = hit_data.get('text_issue_date', '').split('.')[-1]
+        if len(year) != 4:
+            year = hit.get('corpus')[-4:]
+
+        kwic.append({
+            'publication': publication,
+            'corpus': hit.get('corpus', None),
+            'context': context,
+            'url': url,
+            'year': int(year),
+        })
 
     return freq, kwic
 
@@ -117,6 +140,7 @@ def save_frequencies(
         corpora: dict,
         **params,
 ) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     freqs_lemma = {}
     freqs_regex = {}
@@ -159,17 +183,54 @@ def save_frequencies(
     data_lemma_relative['year'] = data_lemma_relative.index
     data_regex_relative['year'] = data_regex_relative.index
 
-    data_lemma.to_csv(output_dir / 'frequencies_FI_newspapers_lemma_abs.csv')
-    data_regex.to_csv(output_dir / 'frequencies_FI_newspapers_regex_abs.csv')
-    data_lemma_relative.to_csv(output_dir / 'frequencies_FI_newspapers_lemma.csv')
-    data_regex_relative.to_csv(output_dir / 'frequencies_FI_newspapers_regex.csv')
+    data_lemma.to_csv(output_dir / 'frequencies_fi_newspapers_lemma_abs.csv')
+    data_regex.to_csv(output_dir / 'frequencies_fi_newspapers_regex_abs.csv')
+    data_lemma_relative.to_csv(output_dir / 'frequencies_fi_newspapers_lemma.csv')
+    data_regex_relative.to_csv(output_dir / 'frequencies_fi_newspapers_regex.csv')
+
+
+def save_kwics(
+        regex_dict: dict,
+        output_dir: Path,
+        korp_url: str,
+        corpora: dict,
+        **params,
+) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    for word, regex in regex_dict.items():
+        word = word.casefold()
+
+        _, kwic_lemma = query(
+            word=word,
+            regex=regex,
+            url=korp_url,
+            corpora=corpora,
+            use_lemma=True,
+            **params
+        )
+
+        kwic_lemma = pd.DataFrame.from_dict(kwic_lemma)
+        kwic_lemma.to_csv(output_dir / f'{word}_lemma.csv')
+
+        _, kwic_regex = query(
+            word=word,
+            regex=regex,
+            url=korp_url,
+            corpora=corpora,
+            use_lemma=False,
+            **params
+        )
+
+        kwic_regex = pd.DataFrame.from_dict(kwic_regex)
+        kwic_regex.to_csv(output_dir / f'{word}_regex.csv')
 
 
 if __name__ == '__main__':
     wordlist_dir = Path('../../wordlists')
     output_dir = Path('../../data/processed')
 
-    words = read_word_list(wordlist_dir / 'wordlist_FI_newspapers.csv')
+    words = read_word_list(wordlist_dir / 'wordlist_fi_newspapers.csv')
 
     years = range(1820, 1911)
     corpora = {y: f"KLK_FI_{y}" for y in years if y not in (1828, 1843)}
@@ -179,7 +240,16 @@ if __name__ == '__main__':
         regex='(K|k)eisar.+',
         url='https://korp.csc.fi/cgi-bin/korp.cgi',
         corpora=corpora,
-        use_lemma=False,
+        use_lemma=True,
+    )
+
+    save_kwics(
+        regex_dict=words,
+        output_dir=output_dir / 'kwic_fi_newspapers',
+        korp_url='https://korp.csc.fi/cgi-bin/korp.cgi',
+        corpora=corpora,
+        start=0,
+        end=10_000,
     )
 
     save_frequencies(
@@ -188,5 +258,5 @@ if __name__ == '__main__':
         korp_url='https://korp.csc.fi/cgi-bin/korp.cgi',
         corpora=corpora,
         start=0,
-        end=0,
+        end=10,
     )

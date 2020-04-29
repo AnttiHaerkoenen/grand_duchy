@@ -24,11 +24,12 @@ def read_word_list(file):
     data = pd.read_csv(str(file), header=None)
     data.columns = 'word regex'.split()
     data.dropna(inplace=True)
+    data.sort_values(by='word', inplace=True)
 
     words = data['word']
     regex = data['regex']
 
-    return {w.lower(): r for w, r in zip(words, regex)}
+    return {w.casefold(): r for w, r in zip(words, regex)}
 
 
 if __name__ == '__main__':
