@@ -83,7 +83,11 @@ def query(
 
     kwic = []
     for hit in result['kwic']:
-        context = ' '.join([w['word'] for w in hit['tokens']])
+        try:
+            context = ' '.join([w['word'] for w in hit['tokens']])
+        except TypeError:
+            context = ''
+
         hit_data = hit.get('structs', dict())
 
         text_type = hit_data.get('text_publ_type', None)
@@ -183,10 +187,10 @@ def save_frequencies(
     data_lemma_relative['year'] = data_lemma_relative.index
     data_regex_relative['year'] = data_regex_relative.index
 
-    data_lemma.to_csv(output_dir / 'frequencies_fi_newspapers_lemma_abs.csv')
-    data_regex.to_csv(output_dir / 'frequencies_fi_newspapers_regex_abs.csv')
-    data_lemma_relative.to_csv(output_dir / 'frequencies_fi_newspapers_lemma.csv')
-    data_regex_relative.to_csv(output_dir / 'frequencies_fi_newspapers_regex.csv')
+    data_lemma.to_csv(output_dir / 'lemma_abs.csv')
+    data_regex.to_csv(output_dir / 'regex_abs.csv')
+    data_lemma_relative.to_csv(output_dir / 'lemma_rel.csv')
+    data_regex_relative.to_csv(output_dir / 'regex_rel.csv')
 
 
 def save_kwics(
@@ -254,7 +258,7 @@ if __name__ == '__main__':
 
     save_frequencies(
         regex_dict=words,
-        output_dir=output_dir,
+        output_dir=output_dir / 'frequencies_fi_newspapers',
         korp_url='https://korp.csc.fi/cgi-bin/korp.cgi',
         corpora=corpora,
         start=0,
