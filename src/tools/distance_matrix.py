@@ -31,18 +31,19 @@ def make_distance_matrices(
         word_file: Path,
         output_dir: Path,
 ):
+    output_dir.mkdir(parents=True, exist_ok=True)
     words = read_word_list(word_file)
 
     for name, model in models:
-        print(f"Making matrix from {name}")
+        print(f"Making similarity matrix from {name}")
         d = make_distance_matrix(words, model)
-        d.to_csv(output_dir / f"distance_matrix_{name}.csv")
+        d.to_csv(output_dir / f"{name}.csv")
 
 
 if __name__ == '__main__':
     model_dir = Path('../../models')
     wordlist_dir = Path('../../wordlists')
-    output_dir = Path('../../data/processed')
+    output_dir = Path('../../data/processed') / 'distances'
 
     en_models = (
         (f'en_{year}', gensim.models.Word2Vec.load(
