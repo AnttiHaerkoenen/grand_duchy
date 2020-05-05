@@ -15,6 +15,40 @@ HEADERS = {
 }
 
 
+def combine_regex_and_lemma_df(
+        *,
+        lemma_df: pd.DataFrame,
+        regex_df: pd.DataFrame,
+):
+    if lemma_df.empty:
+        regex_df['type'] = ['regex'] * len(regex_df.index)
+        return regex_df
+
+    if regex_df.empty:
+        lemma_df['type'] = ['lemma'] * len(lemma_df.index)
+        return lemma_df
+
+    lemma_df.set_index('url', inplace=True)
+    regex_df.set_index('url', inplace=True)
+
+    duplicates_idx = lemma_df.index.intersection(regex_df.index)
+    only_lemma_idx = lemma_df.index.difference(duplicates_idx)
+    only_regex_idx = regex_df.index.difference(duplicates_idx)
+
+    duplicates = lemma_df.loc[duplicates_idx]
+    only_lemma = lemma_df.loc[only_lemma_idx]
+    only_regex = regex_df.loc[only_regex_idx]
+
+    duplicates['type'] = ['both'] * len(duplicates_idx)
+    only_lemma['type'] = ['lemma'] * len(only_lemma_idx)
+    only_regex['type'] = ['regex'] * len(only_regex_idx)
+
+    data = pd.concat([duplicates, only_regex, only_lemma])
+    data.reset_index(inplace=True)
+
+    return data
+
+
 def make_request(
         url,
         query_params,
@@ -82,6 +116,7 @@ def query(
     freq = {y: result['corpus_hits'].get(c, None) for y, c in corpora.items()}
 
     kwic = []
+
     for hit in result['kwic']:
         try:
             context = ' '.join([w['word'] for w in hit['tokens']])
@@ -214,8 +249,7 @@ def save_kwics(
             **params
         )
 
-        kwic_lemma = pd.DataFrame.from_dict(kwic_lemma)
-        kwic_lemma.to_csv(output_dir / f'{word}_lemma.csv')
+        kwic_lemma = pd.DataFrame.from_dict(kwic_lemma).drop_duplicates('url')
 
         _, kwic_regex = query(
             word=word,
@@ -226,8 +260,14 @@ def save_kwics(
             **params
         )
 
-        kwic_regex = pd.DataFrame.from_dict(kwic_regex)
-        kwic_regex.to_csv(output_dir / f'{word}_regex.csv')
+        kwic_regex = pd.DataFrame.from_dict(kwic_regex).drop_duplicates('url')
+
+        kwic_data = combine_regex_and_lemma_df(
+            regex_df=kwic_regex,
+            lemma_df=kwic_lemma,
+        )
+
+        kwic_data.to_csv(output_dir / f'{word}.csv')
 
 
 if __name__ == '__main__':
@@ -239,6 +279,7 @@ if __name__ == '__main__':
     years = range(1820, 1911)
     corpora = {y: f"KLK_FI_{y}" for y in years if y not in (1828, 1843)}
 
+    print("Test run:")
     freq, kwic = query(
         word='keisari',
         regex='(K|k)eisar.+',
@@ -261,6 +302,4 @@ if __name__ == '__main__':
         output_dir=output_dir / 'frequencies_fi_newspapers',
         korp_url='https://korp.csc.fi/cgi-bin/korp.cgi',
         corpora=corpora,
-        start=0,
-        end=10,
     )

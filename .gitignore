@@ -92,4 +92,5 @@ target/
 
 /data/processed/kwic_fi_newspapers/
 /data/processed/kwic_sv_riksdag/
-/secrets.json
+/secrets
+/secrets
