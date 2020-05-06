@@ -1,11 +1,11 @@
 from pathlib import Path
-import re
 
 import pandas as pd
 import requests
 from requests.exceptions import ReadTimeout, HTTPError
 
 from src.tools.utils import read_word_list
+from src.tools.exceptions import EmptyDataFrameError
 
 TIMEOUT = 60
 HEADERS = {
@@ -20,12 +20,21 @@ def combine_regex_and_lemma_df(
         lemma_df: pd.DataFrame,
         regex_df: pd.DataFrame,
 ):
+    if lemma_df.empty and regex_df.empty:
+        raise EmptyDataFrameError
+
     if lemma_df.empty:
+        regex_df.set_index('url', inplace=True)
         regex_df['type'] = ['regex'] * len(regex_df.index)
+        regex_df.reset_index(inplace=True)
+
         return regex_df
 
     if regex_df.empty:
+        lemma_df.set_index('url', inplace=True)
         lemma_df['type'] = ['lemma'] * len(lemma_df.index)
+        lemma_df.reset_index(inplace=True)
+
         return lemma_df
 
     lemma_df.set_index('url', inplace=True)
@@ -45,6 +54,7 @@ def combine_regex_and_lemma_df(
 
     data = pd.concat([duplicates, only_regex, only_lemma])
     data.reset_index(inplace=True)
+    data.rename(columns={'index': 'url'}, inplace=True)
 
     return data
 
@@ -262,12 +272,14 @@ def save_kwics(
 
         kwic_regex = pd.DataFrame.from_dict(kwic_regex).drop_duplicates('url')
 
-        kwic_data = combine_regex_and_lemma_df(
-            regex_df=kwic_regex,
-            lemma_df=kwic_lemma,
-        )
-
-        kwic_data.to_csv(output_dir / f'{word}.csv')
+        try:
+            kwic_data = combine_regex_and_lemma_df(
+                regex_df=kwic_regex,
+                lemma_df=kwic_lemma,
+            )
+            kwic_data.to_csv(output_dir / f'{word}.csv')
+        except EmptyDataFrameError:
+            print(f'No data to save for {word}.')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,2 @@
+class EmptyDataFrameError(ValueError):
+    pass
