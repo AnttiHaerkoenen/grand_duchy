@@ -1,22 +1,81 @@
 from pathlib import Path
-import json
+from typing import Sequence
 
 import pandas as pd
 from sqlalchemy import create_engine
-from sqlalchemy.engine.url import URL
 
 
 def populate_database(
-        data_dir,
-        **database_params
+        *,
+        data_dir: Path,
+        kwic_dirs: Sequence,
+        database_url: str,
+        size_limit: int,
 ):
-    url = URL(**database_params)
-    engine = create_engine(url)
-    print(engine)
+    engine = create_engine(database_url)
+
+    for directory in kwic_dirs:
+        path = data_dir / directory
+
+        engine.execute(
+            f"DROP TABLE IF EXISTS {directory}"
+        )
+
+        for file in sorted(path.iterdir()):
+            print(f'Reading {file.name}')
+
+            df = pd.read_csv(file)
+
+            if df.empty:
+                print(f'{file.name} is empty, moving on')
+                continue
+
+            df.sort_values(by='year', inplace=True)
+            df = df.head(size_limit)
+
+            df['lemma'] = df.type.isin(['lemma', 'both'])
+            df['regex'] = df.type.isin(['regex', 'both'])
+            df.drop(columns='type', inplace=True)
+            df['term'] = [file.stem] * len(df.index)
+
+            print(f'Saving {file.stem} to database')
+
+            df.to_sql(
+                directory,
+                con=engine,
+                if_exists='append',
+                index=False,
+            )
+
+        engine.execute(
+            f"CREATE INDEX index ON {directory} (term, year, lemma, regex)"
+        )
 
 
 if __name__ == '__main__':
-    with open('../../secrets.json') as fopen:
-        database_params = json.load(fopen)
+    kwic_dirs = (
+        'kwic_fi_newspapers',
+    )
+    data_dir = Path('../../data/processed')
 
-    populate_database('foo', **database_params)
+    with open('../../secrets') as fopen:
+        database_url = fopen.read()
+
+    populate_database(
+        data_dir=data_dir,
+        database_url=database_url,
+        kwic_dirs=kwic_dirs,
+        size_limit=1_0,
+    )
+
+    engine = create_engine(database_url)
+    df = pd.read_sql(
+        """
+        SELECT * 
+        FROM keywords
+        WHERE regex = true AND term = 'aika'
+        """,
+        con=engine,
+    )
+
+    print(df)
