@@ -48,7 +48,7 @@ def populate_database(
             )
 
         engine.execute(
-            f"CREATE INDEX index ON {directory} (term, year, lemma, regex)"
+            f"CREATE INDEX index ON {directory} (term, year)"
         )
 
 
@@ -65,7 +65,7 @@ if __name__ == '__main__':
         data_dir=data_dir,
         database_url=database_url,
         kwic_dirs=kwic_dirs,
-        size_limit=1_0,
+        size_limit=1_000,
     )
 
     engine = create_engine(database_url)
