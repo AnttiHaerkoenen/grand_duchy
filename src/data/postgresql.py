@@ -4,6 +4,9 @@ from typing import Sequence
 import pandas as pd
 from sqlalchemy import create_engine
 
+from src.tools.utils import text_file_generator, read_word_list
+from src.tools.kwic import get_kwic
+
 
 def populate_database(
         *,
@@ -31,12 +34,15 @@ def populate_database(
                 continue
 
             df.sort_values(by='year', inplace=True)
+
             df = df.head(size_limit)
 
-            df['lemma'] = df.type.isin(['lemma', 'both'])
-            df['regex'] = df.type.isin(['regex', 'both'])
-            df.drop(columns='type', inplace=True)
             df['term'] = [file.stem] * len(df.index)
+
+            if 'type' in df.columns:
+                df['lemma'] = df.type.isin(['lemma', 'both'])
+                df['regex'] = df.type.isin(['regex', 'both'])
+                df.drop(columns='type', inplace=True)
 
             print(f'Saving {file.stem} to database')
 
