@@ -3,6 +3,7 @@ from typing import Sequence
 
 import pandas as pd
 from sqlalchemy import create_engine
+from sqlalchemy.exc import ProgrammingError
 
 
 def populate_database(
@@ -50,9 +51,12 @@ def populate_database(
                 index=False,
             )
 
-        engine.execute(
-            f"CREATE INDEX index ON {directory} (term, year)"
-        )
+        try:
+            engine.execute(
+                f"CREATE INDEX {directory}_index ON {directory} (term, year)"
+            )
+        except ProgrammingError:
+            print("Index creation failed: Undefined table")
 
 
 if __name__ == '__main__':
@@ -60,7 +64,7 @@ if __name__ == '__main__':
         'kwic_sv_riksdag',
         'kwic_fi_newspapers',
     )
-    data_dir = Path.home() / '/gd_data/processed'
+    data_dir = Path.home() / 'gd_data/processed'
 
     with open('../../secrets') as fopen:
         database_url = fopen.read()
@@ -69,15 +73,16 @@ if __name__ == '__main__':
         data_dir=data_dir,
         database_url=database_url,
         kwic_dirs=kwic_dirs,
-        size_limit=1_000,
+        size_limit=10,
     )
 
     engine = create_engine(database_url)
+
     df = pd.read_sql(
         """
         SELECT * 
-        FROM keywords
-        WHERE regex = true AND term = 'aika'
+        FROM kwic_fi_newspapers
+        WHERE term='aika';
         """,
         con=engine,
     )

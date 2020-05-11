@@ -284,7 +284,7 @@ def save_kwics(
 
 if __name__ == '__main__':
     wordlist_dir = Path('../../wordlists')
-    output_dir = Path('~/gd_data/processed')
+    output_dir = Path.home() / 'gd_data/processed'
 
     words = read_word_list(wordlist_dir / 'wordlist_fi_newspapers.csv')
 
