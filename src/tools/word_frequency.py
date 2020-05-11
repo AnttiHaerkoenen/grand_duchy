@@ -67,7 +67,7 @@ def get_frequency_by_year(
 
 if __name__ == '__main__':
     data = Path('~/gd_data/raw/')
-    output = Path('~/gd_data/processed/frequencies_riksdag')
+    output = Path('~/gd_data/processed/frequencies_sv_riksdag')
     words = Path('../../wordlists/wordlist_sv_riksdag.csv')
     bins = Path('../../wordlists/riksdag_bins.csv')
 
