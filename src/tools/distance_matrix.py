@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
     make_distance_matrices(
         models=sv_models,
-        word_file=wordlist_dir / 'wordlist_riksdag.csv',
+        word_file=wordlist_dir / 'wordlist_sv_riksdag.csv',
         output_dir=output_dir,
     )
     make_distance_matrices(

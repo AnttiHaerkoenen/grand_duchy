@@ -5,15 +5,16 @@ import pandas as pd
 
 
 def text_file_generator(
-        data: str,
+        data_path: Path,
         rule: str,
 ) -> tuple:
-    fp = Path(data)
+    if isinstance(data_path, str):
+        data_path = Path(data_path)
 
-    if not fp.exists():
-        raise FileNotFoundError(f"Specified data path {str(fp)} does not exist.")
+    if not data_path.exists():
+        raise FileNotFoundError(f"Specified data path {str(data_path)} does not exist.")
 
-    for path in fp.rglob(rule):
+    for path in data_path.rglob(rule):
         text = path.read_text()
         year = re.findall(r'\d{4}', path.name)[0]
 

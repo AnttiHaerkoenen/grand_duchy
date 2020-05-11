@@ -4,9 +4,6 @@ from typing import Sequence
 import pandas as pd
 from sqlalchemy import create_engine
 
-from src.tools.utils import text_file_generator, read_word_list
-from src.tools.kwic import get_kwic
-
 
 def populate_database(
         *,
@@ -60,9 +57,10 @@ def populate_database(
 
 if __name__ == '__main__':
     kwic_dirs = (
+        'kwic_sv_riksdag',
         'kwic_fi_newspapers',
     )
-    data_dir = Path('../../data/processed')
+    data_dir = Path.home() / '/gd_data/processed'
 
     with open('../../secrets') as fopen:
         database_url = fopen.read()
