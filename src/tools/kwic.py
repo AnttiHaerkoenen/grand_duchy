@@ -154,7 +154,7 @@ def get_kwic_all(
 
 
 if __name__ == '__main__':
-    input_dir = Path.home() / 'gd_data/raw/riksdag'
+    input_dir = Path.home() / 'gd_data/external/'
     output_dir = Path.home() / 'gd_data/processed/kwic_sv_riksdag'
     wordlist = Path('../../wordlists/wordlist_sv_riksdag.csv')
     rule = '*.txt'
@@ -164,6 +164,6 @@ if __name__ == '__main__':
         input_dir=input_dir,
         rule=rule,
         wordlist=wordlist,
-        window_size=20,
+        window_size=150,
         size_limit=1000,
     )

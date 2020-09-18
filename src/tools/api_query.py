@@ -291,14 +291,14 @@ if __name__ == '__main__':
     years = range(1820, 1911)
     corpora = {y: f"KLK_FI_{y}" for y in years if y not in (1828, 1843)}
 
-    print("Test run:")
-    freq, kwic = query(
-        word='keisari',
-        regex='(K|k)eisar.+',
-        url='https://korp.csc.fi/cgi-bin/korp.cgi',
-        corpora=corpora,
-        use_lemma=True,
-    )
+    # print("Test run:")
+    # freq, kwic = query(
+    #     word='keisari',
+    #     regex='(K|k)eisar.+',
+    #     url='https://korp.csc.fi/cgi-bin/korp.cgi',
+    #     corpora=corpora,
+    #     use_lemma=True,
+    # )
 
     save_kwics(
         regex_dict=words,

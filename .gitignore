@@ -78,6 +78,7 @@ target/
 
 # exclude data from source control by default
 /data/raw
+/data/external
 /data/interim
 
 # Mac OS-specific storage files
@@ -92,5 +93,4 @@ target/
 
 /data/processed/kwic_fi_newspapers/
 /data/processed/kwic_sv_riksdag/
-/secrets
-/secrets
+secrets
