@@ -82,15 +82,15 @@ if __name__ == '__main__':
         size_limit=1000,
     )
 
-    engine = create_engine(database_url)
-
-    df = pd.read_sql(
-        """
-        SELECT * 
-        FROM kwic_fi_newspapers
-        WHERE term='aika';
-        """,
-        con=engine,
-    )
-
-    print(df)
+    # engine = create_engine(database_url)
+    #
+    # df = pd.read_sql(
+    #     """
+    #     SELECT *
+    #     FROM kwic_fi_newspapers
+    #     WHERE term='aika';
+    #     """,
+    #     con=engine,
+    # )
+    #
+    # print(df)
