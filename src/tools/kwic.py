@@ -164,6 +164,6 @@ if __name__ == '__main__':
         input_dir=input_dir,
         rule=rule,
         wordlist=wordlist,
-        window_size=150,
-        size_limit=1000,
+        window_size=300,
+        size_limit=2000,
     )

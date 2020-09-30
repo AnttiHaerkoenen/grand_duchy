@@ -79,7 +79,7 @@ if __name__ == '__main__':
         data_dir=data_dir,
         database_url=database_url,
         kwic_dirs=kwic_dirs,
-        size_limit=1000,
+        size_limit=2000,
     )
 
     # engine = create_engine(database_url)
