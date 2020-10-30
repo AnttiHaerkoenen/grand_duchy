@@ -35,7 +35,7 @@ def get_frequency(
 
 
 def get_frequency_by_year(
-        data: str,
+        data,
         bins_file: str,
         wordlist: str,
 ):
@@ -62,6 +62,7 @@ def get_frequency_by_year(
         frequencies.append(freq)
 
     result = pd.concat(frequencies, axis=1).T
+
     return result
 
 
