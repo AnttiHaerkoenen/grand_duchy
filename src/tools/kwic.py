@@ -94,7 +94,7 @@ def get_kwic_for_word(
     if not rows:
         return pd.DataFrame()
 
-    return pd.DataFrame.from_records(rows).sort_values('year').head(size_limit)
+    return pd.DataFrame.from_records(rows).sort_values('year').head(size_limit).reset_index()
 
 
 def save_kwic_by_word(
@@ -154,7 +154,7 @@ def get_kwic_all(
         )
         files.append(kwic)
 
-    return pd.concat(files, axis=0).sort_values('keyword')
+    return pd.concat(files, axis=0).sort_values('keyword').reset_index()
 
 
 if __name__ == '__main__':
