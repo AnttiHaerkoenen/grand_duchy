@@ -6,13 +6,13 @@ bokeh==1.4.0
 boto==2.49.0
 boto3==1.10.15
 botocore==1.13.15
-certifi==2019.11.28
+certifi==2020.6.20
 cffi==1.13.1
 chardet==3.0.4
 Click==7.0
 colorama==0.4.1
 coverage==4.5.4
-cryptography==3.2
+cryptography==3.2.1
 cycler==0.10.0
 dash==1.4.1
 dash-core-components==1.3.1
@@ -46,6 +46,7 @@ packaging==19.2
 pandas==0.25.3
 Pillow==6.2.1
 plotly==4.3.0
+psycopg2 @ file:///home/conda/feedstock_root/build_artifacts/psycopg2_1599504168958/work
 pyasn1==0.4.6
 pycodestyle==2.5.0
 pycparser==2.19
@@ -80,3 +81,4 @@ SQLAlchemy==1.3.16
 tornado==6.0.3
 urllib3==1.25.6
 Werkzeug==0.16.0
+xmltodict==0.12.0

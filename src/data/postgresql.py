@@ -51,6 +51,7 @@ def populate_database(
                     con=engine,
                     if_exists='append',
                     index=False,
+                    chunksize=100,
                 )
             except OperationalError as e:
                 print(f"Database connection shut down: {str(e)}")
