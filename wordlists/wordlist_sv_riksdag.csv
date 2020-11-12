@@ -159,7 +159,6 @@ Dela upp,(D|d|b)(e|c)l(a|o)
 Skilja åt,(S|s|F|G)(k|f)ilj(a|o)
 Sära på,(S|s|F)(ä|ö|a|o)(r|c)(a|o)
 Vetenskap,(v|w)(e|c)(t|f)(e|c)(n|u)(s|f)(k|f)(a|o)p
-Ta fram,(T|t)(a|o) f(r|c)(a|o)(m|w)
 Dagstidning,(D|d|b)(a|o)g(s|f)(t|f)i(d|b)(n|u)i(n|u)g
 Nyhetstidning,(N|n|u)(y|h)h(e|c)(t|f)(s|f)(t|f)i(d|b)(n|u)i(n|u)g
 Risk,(R|r)i(s|f)(k|f)
@@ -182,21 +181,22 @@ Föreställning,(F|f)(ö|o)(r|c)(e|c)(s|f)(t|f)(ä|a|ö|o)l+(n|u)i(n|u)g
 Idea,(I|i)(d|b|h)(e|c)(a|)
 Lokal,(L|l)o(k|f)(a|o)l
 Orts-,(O|o|D)(r|c)(t|f)(s|f)(\-|)
-Sankt Petersburg,(S|s|f)(a|o|)(n|u|)(k|f|)(t|f) (P|p)(e|c)(t|f)(e|c)(r|c)(s|f)(b|d|h)(u|n)(r|c)g
+Sankt Petersburg,(S|s|f)(a|o|)(n|u|)(k|f|)(t|f)( *|\-)(P|p)(e|c)(t|f)(e|c)(r|c)(s|f)*(b|d|h)(u|n)(r|c)g
 Petersburg,(P|p)(e|c)(t|f)(e|c)(r|c)(s|f)(b|d|h)(u|n)(r|c)g
 Akademi,(A|a|N)(k|f)(a|o)(d|b|h)(e|c)(m|w)i(a|o|)
 Samfund,(S|s|f|G)(a|o)(m|w)f(u|n)(d|b|h)
-Alternativ,(A|a|N)l(t|f)(e|c)(r|c)(n|u)(a|o)(t|f)i(v|w)(\-|)
+Alternativ,(A|a|N)l(t|f)(e|c)(r|c)(n|u)(a|o)(t|f)i(v|w)
 Annan,(A|a|N)(n+|u+)(a|o)(n|u)
 Skapa,(S|s|f|G)(k|f)(a|o)p(a|o)
 Överlåta,(Ö|ö|o|O)(v|w)(e|c)(r|c)l(å|a|ä|ö|o)(t|f)(a|o)
 Artikel,(A|a|N)(r|c)(t|f)i(k|f)(e|c)l
 Paragraf,(P|p)(a|o)(r|c)(a|o)g(r|c)(a|o)f
 Trakt,(T|t|f)(r|c)(a|o)(k|f)(t|f)
-Res Publica,(R|r|c|K|H)(e|c)(s|f) (P|p)u(b|d|h|p)li(c|k|f)(a|o)
-Karelen,(K|k|f|H|R)(a|o)(r|c)(e|c)l
-Karelsk,(K|k|f|H|R)(a|o)(r|c)(e|c)l(s|f)(k|f)
-Karelare,(K|k|f|H|R)(a|o)(r|c)(e|c)l(a|o)(r|c)(e|c)
+Res Publica,(R|r|c|K|H)(e|c)(s|f) *(P|p)u(b|d|h|p)li(c|k|f)(a|o)
+Karelen,(K|k|C|c)(a|o)(r|c)(e|c)l(e|c)(n|u)
+K a r e l e n,(K|k|R|C|c) (a|o) (r|c) (e|c) l (e|c) (n|u)
+Karelsk,(K|k|R|C|c)(a|o)(r|c)(e|c)l(s|f)(k|f)
+Karelare,(K|k|R|C|c)(a|o)(r|c)(e|c)l(a|o)(r|c)(e|c)
 Medlem,(M|m|w|W)(e|c)(d|b|h)l(e|c)(m|w)
 Gemensam,(G|g)(e|c)(m|w)(e|c)(n|u)(s|f)(a|o)(m|w)
 Allmän,(A|a|N)l+(m|w)(a|o|ä|ö)(n|u)
@@ -219,7 +219,6 @@ Jämförelse,(J|j|I|i)(ä|a|ö|o)(m|w)f(ö|o)(r|c)(e|c)l(s|f)(e|c)
 General,(G|g|k)(e|c)(n|u)(e|c)(r|c)(a|o)l
 Förhandla,(F|f)(ö|o)(r|c)h(a|o)(n|u)(d|b|h)l(a|o)
 Utverka,(U|u|n)(t|f)(v|w)(e|c)(r|c)(k|f)(a|o)
-Få still stånd,(F|f)(å|ä|a|ö|o) (s|f)(t|f)il+ (s|f)(t|f)(å|ä|a|ö|o)(n|u)(d|b|h)
 Invånare,(I|i|J|j)(n|u)(v|w)(å|ä|ö|a|o)(n|u)(a|o)(r|c)(e|c)
 Allmoge,(A|a|N)l+(m|w)og(e|c)
 Forskningsfält,(F|f)o(r|c)(s|f)(k|f)(n|u)i(n|u)g(s|f)f(ä|a|ö|o)l(t|f)
