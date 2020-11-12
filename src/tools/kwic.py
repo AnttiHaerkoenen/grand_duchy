@@ -1,6 +1,7 @@
 import os
 import re
 from pathlib import Path
+from typing import Callable
 
 import pandas as pd
 
@@ -105,6 +106,7 @@ def save_kwic_by_word(
         wordlist: str,
         window_size: int,
         size_limit: int,
+        word_filter_rule: Callable[[str], bool],
 ):
     output_dir.mkdir(parents=True, exist_ok=True)
     words = read_word_list(wordlist)
@@ -116,6 +118,9 @@ def save_kwic_by_word(
     }
 
     for term, regex in regex.items():
+        if not word_filter_rule(term):
+            continue
+
         kwic_term = get_kwic_for_word(
             data=input_dir,
             rule=rule,
@@ -170,4 +175,5 @@ if __name__ == '__main__':
         wordlist=wordlist,
         window_size=300,
         size_limit=2000,
+        word_filter_rule=lambda w: w in ("karelen", "k a r e l e n"),
     )
