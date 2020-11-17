@@ -129,6 +129,10 @@ def save_kwic_by_word(
             window_size=window_size,
             size_limit=size_limit,
         )
+
+        if not kwic_term.empty:
+            kwic_term.drop(columns=['index', 'keyword'], inplace=True)
+
         kwic_term.to_csv(output_dir / f"{term.replace(' ', '_')}.csv")
 
 
