@@ -173,9 +173,10 @@ Omtvistad,o(m|w)(t|f)(v|w)i(s|f)(t|f)(a|o)(d|b|h)
 Orts-,o(r|c)(t|f)(s|f)
 Panslavism,panslavism
 Paragraf,p(a|o)(r|c)(a|o)g(r|c)(a|o)f
-Parlament,p(a|o)(r|c)l(a|o)(m|w)(e|c)(n|u)(t|f)
-Parlamentarianism,parlamentarianism
-Partifanatism,partifanatism
+Parlament,p(a|o)(r|c)l(a|e|ie|o)(m|w)(e|c)(n|u)(t|f)
+Parlamentarianism,parl(a|e|ie|o)mentar(ian)?ism
+Parlamentarisk regering,p(a|o)(r|c)l(a|e|ie|o)(m|w)(e|c)(n|u)(t|f)(a|o)riska? regering
+Partifanatism,part(y|i|ie)fanatism
 Partikularism,partikularism
 Patriotism,patriotism
 Pengar,p(f|)(e|c)(n+|u+)g(a|o)(r|f)
@@ -202,7 +203,7 @@ Regeringsform,(r|c)(e|c)g(e|c)(r|c)i(n|u)g(s|f)fo(r|c)(m|w)
 Region,(r|c)(e|c)gi(o|a)(n|u)
 Representation,(r|c)(e|c)p(r|c)(e|c)(s|f)(e|c)(n|u)(t|f)a(t|f)io(n|u)
 Republikanism,(r|c)(e|c)publikanism
-Res Publica,(r|c)(e|c)(s|f) *pu(b|d|h|p)li(c|k|f)(a|o)
+Res Publica,(r|c)(e|c)(s|f) ?pu(b|d|h|p)li(c|k|f)(a|o)
 Retorik,(r|c)(e|c)(t|f)(o|a)(r|c)i(k|f)
 Retorisk,(r|c)(e|c)(t|f)(o|a)(r|c)i(s|f)(k|f)
 Rike,(r|c)i(k|f)(e|c)
@@ -219,7 +220,7 @@ Samfund,(s|f)(a|o)(m|w)f(u|n)(d|b|h)
 Samhällelig,(s|f)a(m|w)h(a|ä)l+(e|c)lig
 Samhället,(s|f)a(m|w)h(a|ä)l+(e|c)(t|f)
 Samhällsform,(s|f)a(m|w)h(ä|a)l+(s|f)fo(r|c)(m|w)
-Sankt Petersburg,(s|f)(a|o|)(n|u|)(k|f|)(t|f)( *|\-)p(e|c)(t|f)(e|c)(r|c)(s|f)*(b|d|h)(u|n)(r|c)g
+Sankt Petersburg,(s|f)(a|o|)(n|u|)(k|f|)(t|f)( |\-)?p(e|c)(t|f)(e|c)(r|c)(s|f)?(b|d|h)(u|n)(r|c)g
 Schism,(s|f)(ch|k)ism
 Sedel,(s|f)(e|c)(d|b|h|t)(e|c)l
 Sekel,(s|f)(e|c)(k|f)(e|c)l

@@ -1,4 +1,4 @@
-Agitatsiooni,(a|o).i(t|f)(a+|o+)(t|f)(s*|f*)io+(n*|u*)i*
+Agitatsiooni,(a|o).i(t|f)(a+|o+)(t|f)(s|f)+io+(n|u)i?
 Aiheuttaa,(a|o)i(h|b)(e|c)u(t+|f+)(a+|o+)
 Aika,(a|o)(i+|j+|ij)(k|f)(a|o)
 Aikakausi,(a|o)(i|j|ij)(k|f)(a|o)(k|f)(a|o)u(s|f)i
@@ -22,10 +22,10 @@ Avustaa,(a|o)(v|w)(u|n)(s|f)(t|f)(a+|o+)
 Bonapartism,(b|d)onapartism
 Demokratia,.(e|c)(m|w)o(k|f)(r|c)(a|o)(t|f)i(a|o)
 Dynasti-,.(y|h|)(n|u)(a|o)(s|f)(t|f)i
-Edistynyt,(e|c)(d*|b*|h*)i(s|f)(t|f)(y|h)(n|u)(y|h)(t|f)
+Edistynyt,(e|c)(d|b|h)i(s|f)(t|f)(y|h)(n|u)(y|h)(t|f)
 Eduskunta,(e|c)(d|h|b|t)u(s|f)(k|f)un(t|f)a
-Edustajisto,(e|c)(d*|b*|h*|t*|)u(s|f)(t|f)a(ji|ij)(s|f)(t|f)o
-Edustus,(e|c)(d*|b*|h*)(u|n)(s|f)(t|f)(u|n)(s|f)
+Edustajisto,(e|c)(d|b|h|t|)u(s|f)(t|f)a(ji|ij)(s|f)(t|f)o
+Edustus,(e|c)(d|b|h)(u|n)(s|f)(t|f)(u|n)(s|f)
 Eheys,(e|c)(h|b|d)(e|c)(y|h|b|d)(s|f)
 Entinen,(e|c)n(t|f)in(e|c)n
 Eri,(e|c)(r|c)i
@@ -45,10 +45,10 @@ Hallitus,hal+i(t|f)u(s|f)
 Hallitusaika,h(a|o)l+i(t|f)u(s|f)(a|o)i(k|f)(a|o)
 Hallitusmuoto,h(a|o)l+i(t|f)u(s|f)(m|w)u(o|a)(t|f)(o|a)
 Herttua,h(e|c)r(t+|f+)u(a|o)
-Herttuakunta,h(e|c)(r|c)(t+|f+)ua(k|f)u*n*(t|f)(a|o)
+Herttuakunta,h(e|c)(r|c)(t+|f+)ua(k|f)un(t|f)(a|o)
 Hetki,h(e|c)(t|f)(k|f)i
 Historia,hi(s|f)(t|f)(o|a)(r|c)i(a|o)
-Historiallinen,hi(s|f)t*(o|a)(r|f)i(a|o)l+in(e|c)n
+Historiallinen,hi(s|f)t(o|a)(r|f)i(a|o)l+in(e|c)n
 Historiankirjoittaja,hi(s|f)(t|f)(o|a)(r|c)(i|j)(a|o)n(k|f)i(r|f)(i|j)(o|a|u)i(t+|f+)(a|o)
 Historiankirjoitus,hi(s|f)(t|f)o(r|c)i(a|o)n(k|f)ir(i|j)(t|f)u(s|f)
 Historioitsija,hi(s|f)(t|f)(o|a)(r|c)(i|j)(a|o)(i|j)(t|f)(i|j|ij)(a|o)
@@ -63,7 +63,7 @@ Irrottaa,(i|j)(r+|c+)(o|a)(t+|f+)(aa+|ää+|oo+)
 Irtautua,(i|j)(r+|c+)(t|f)(o|a)(u|o)(t+|f+)(u|o)(a+|ä+|o+)
 Isänmaa,(i|j)(s|f)(ä|a)nma+
 Itsellisyys,(i|j)(t|f)(s|f)(e|c)l+i(s|f)(y+|h+)(s|f)
-Itsemääräys,(i|j)(t|f)(s|f)(e|c)(m|w)..(r|c).(y|h).*
+Itsemääräys,(i|j)(t|f)(s|f)(e|c)(m|w)..(r|c).(y|h).
 itsenäinen,(i|j)(t|f)(s|f)(e|c)(n|u)(a|ä)i(n|u)(e|c)(n|u)
 Jakaa,(i|j)(a|o)(k|f)(a+|o+)
 Jakautua,(i|j)(a|o)(k|f)(a|o)u(t|f)u(a|o)
@@ -134,12 +134,12 @@ Mahti,(m|w)(a|o)(h|y)(t|f)i
 Markka,(m|w)a(r|c)(k+|f+)a
 Mielenilmaus,(m|w)i(e|c)l(e|c)(n|u)il(m|w)(a|u)(s|f)
 Mielikuva,(m|w)i(e|c)li(k|f)u(w|v)(a|o)
-Ministeristö,(m|w)ini(s*|f*)(t*|f*)eri(s|f)(t|f)(o|ö)
+Ministeristö,(m|w)ini(s|f)(t|f)eri(s|f)(t|f)(o|ö)
 Mobilisaatio,(m|w)(o|a)(h|b|d)ili(s|f)(a+|o)(t|f)i(o|a)
 Monarkki,(m|w)o(n|u)(a|o)(r|c)(f+|k+)i
 Moraali,(m|w)(o|a)(r|c)(a+|o+)li
 Muodollinen,(m|w)u(o|a)(d|b|h)(o|a)l+i(n|u)(e|c)(n|u)
-Muodostaa,(m|w)u(o|a)(d|b|h)o(s|f)(t*|f*)(a+|o+)
+Muodostaa,(m|w)u(o|a)(d|b|h)o(s|f)(t|f)(a+|o+)
 Muodostua,(m|w)u(o|a)(d|h|b|t)(o|a)(s|f)(t|f)(u|n)(a+|o+)
 Muotoutua,(m|w)u(o|a)(t|f)(o|a)u(t|f)(u|n)(a+|o+)
 Myytti,(m|w)(y+|h+)(t+|f+)i
@@ -176,20 +176,20 @@ Rajaseutu,r(a|o|u)j(a|o|u)(s|f)(e|c)u(t|f)u
 Ratkaisu,ra(t|f)(k|f)(a|o)i(s|f)u
 Rauha,rau(h|k)a
 Republikanism,(r|c)(e|c)publikanism
-Res Publica,r(e|c)(s|f) *(P|p)u(b|d|h)li(e|c)(a|o)
+Res Publica,r(e|c)(s|f) ?(P|p)u(b|d|h)li(e|c)(a|o)
 Retoriikka,r(e|c)(t|f)(o|a)ri+(k+|f+)(a|o)
 Riidanalainen,ri+(t|f|d|b|h)(a|o)n(a|o)l(a|o)in(e|c)n
 Riitainen,ri+(t|f)(a|o)in(e|c)n
 Riski,ri(s|f)(k|f)i
 Ruhtinaskunta,r(u|n)h(t|f)i(n|u)(a|o)(s|f)(k|f)(u|n)(n|u)(t|f)(a|o)
-Ruotsalainen,ruo(t|f)(s*|f*)(a|o)l(a|o)in(e|c)n
+Ruotsalainen,ruo(t|f)(s|f)(a|o)l(a|o)in(e|c)n
 Ruotsi,r(u|n)o(t|f)(s|f)i
 Sanomalehti,(s|f)(a|o)n(o|a)(m|w)(a|o)l(e|c)(h|b|y)(t|f)(i|j)
 Senaatti,(s|f)(e|c)(n|u)(a+|o+)(t+|f+)i
-Separatismi,(s|f)(e|c)paratis*
+Separatismi,(s|f)(e|c)paratis
 Seutu,(s|f)(e|c)u(t|f)u
 Sisä-,(s|f)i(s|f)(ä|ä)
-Sisäinen,(s|f)i(s|f)(ä|ä)in(e*|c*)n
+Sisäinen,(s|f)i(s|f)(ä|ä)in(e|c)n
 Sivistys,(s|f)i(v|w)i(s|f)(t|f)(y|h)(s|f)
 Skandinavia,(s|f)(k|f|c)(a|o)(n|u)(d|b|h)i(n|u)(a|o)(v|w)i(a|o)
 Sopimus,(s|f)o(p|f)i(m|w)u(s|f|j)
@@ -200,8 +200,8 @@ Suojel-,(s|f)(u|n)(o|a)(i|j)(e|c)l
 Suomalainen,(s|f)(u|n)(o|a)(m|w)(a|o)l(a|o)i(n|u)(e|c)(n|u)
 Suomenmaa,(s|f)(u|n)(o|a)(m|w)en(m|w)a
 Suomi,(s|f)(u|n)(o|a)(m|w)i
-Suuriruhtinaanmaa,.u+(r|c)i* r(u|n)h(t|f)i(n|u)(a|o)+n(m|w)a
-Suuriruhtinaskunta,.u+(r|c)i* r(u|n)h(t|f)i(n|u)(a|o)(s|f)(k|f)u
+Suuriruhtinaanmaa,.u+(r|c)i? r(u|n)h(t|f)i(n|u)(a|o)+n(m|w)a
+Suuriruhtinaskunta,.u+(r|c)i? r(u|n)h(t|f)i(n|u)(a|o)(s|f)(k|f)u
 Suurvalta,(s|f)(u+|n+|w)(r|c)(\-|\s|\'|)(v|w)al(t|f)(a|o)
 Suvereeni,(s|f)(u|n)(w|v)(e|c)(r|c)(e+|c+)ni
 Synty,(s|f)(y|h)n(t|f)(y|h)
@@ -228,9 +228,9 @@ Valtakunta,(v|w|m)al(t|f)a(k|f)un(t|f)a
 Valtias,(v|w|m)(a|o)l(t|f)(i|ij)(a|o)(s|f)
 Valtio,(v|w|m)(a|o)l(t+|f+)io
 Valtiomuoto,(v|w|m)al(t|f)io(m|w)uo()(t|f)o
-Valtionjohto,(v|w|m)(a|o)l(t|f)io(n*|u*)(j|i)o(h|b)(t|f)o
+Valtionjohto,(v|w|m)(a|o)l(t|f)io(n|u)?(j|i)o(h|b)(t|f)o
 Valtiopäivät,(v|w|m)(a|o)l(t|f)io.(ä|ö|a|o)i(v|w)(ä|a|ö|o)(t|f)
-valtiosääntö,(v|w|m)al(t|f)io(n*)(s|f)(a+|ä+)n(t|f)(o|ö)
+valtiosääntö,(v|w|m)al(t|f)ion?(s|f)(a+|ä+)n(t|f)(o|ö)
 Valtiosääty,(v|w|m)al(t|f)io(s|f)(ä+|a+)(t|f).
 Valtioviisaus,(w|u|v)(a|o)l(t|f)io(v|w|m)i+(s|f)(a|o)(u|n)(s|f)
 Valuutta,(w|u|v)al(u+|n+)(t+|f+)(a|o)
