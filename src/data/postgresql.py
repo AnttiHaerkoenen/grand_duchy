@@ -76,22 +76,22 @@ if __name__ == '__main__':
     with open('../../secrets') as fopen:
         database_url = fopen.read()
 
-    populate_database(
-        data_dir=data_dir,
-        database_url=database_url,
-        kwic_dirs=kwic_dirs,
-        size_limit=2000,
+    # populate_database(
+    #     data_dir=data_dir,
+    #     database_url=database_url,
+    #     kwic_dirs=kwic_dirs,
+    #     size_limit=2000,
+    # )
+
+    engine = create_engine(database_url)
+
+    df = pd.read_sql(
+        """
+        SELECT *
+        FROM kwic_sv_riksdag
+        WHERE term='ateism';
+        """,
+        con=engine,
     )
 
-    # engine = create_engine(database_url)
-    #
-    # df = pd.read_sql(
-    #     """
-    #     SELECT *
-    #     FROM kwic_fi_newspapers
-    #     WHERE term='aika';
-    #     """,
-    #     con=engine,
-    # )
-    #
-    # print(df)
+    print(df.columns)
