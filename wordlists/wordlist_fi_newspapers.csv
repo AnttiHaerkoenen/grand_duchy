@@ -26,8 +26,8 @@ Eheys,(e|c)(h|b|d)(e|c)(y|h|b|d)(s|f)
 Entinen,(e|c)n(t|f)in(e|c)n
 Erilainen,(e|c)(r|c)il(a|o)in(e|c)n
 Erkaantua,(e|c)r(k|f)(a+|o+)n(t|f)u(a|o)
-Erottaa,(e|c)(r|c)(o|a)(t+|f+)(aa+|ää+|oo+)
-Esittää,(e|c)(s|f)i(t+|f+)(ä+|a+)
+Erottaa,(e|c)(r|c)(o|a)(t+|f+)
+Esittää,(e|c)(s|f)i(t+|f+)
 Etu,(e|c)(t|f)(u|n)
 Eurooppa,(e|c)ur+op+(a|o)
 Eurooppalainen,(e|c)ur(o+|a+)p+(a|o)l(a|o)in(e|c)
@@ -43,7 +43,7 @@ Herttuakunta,h(e|c)(r|c)(t+|f+)ua(k|f)un.(a|o)
 Hetki,h(e|c)(t|f)(k|f)i
 Historia,hi(s|f)(t|f)(o|a)(r|c)i(a|o)
 Historiallinen,hi(s|f)t(o|a)(r|f)i(a|o)l+in(e|c)n
-Historiankirjoittaja,hi(s|f)(t|f)(o|a)(r|c)(i|j)(a|o)n(k|f)i(r|f)(i|j)(o|a|u)i(t+|f+)
+Historiankirjoittaja,hi(s|f)(t|f)(o|a)(r|c)(i|j)(a|o)n(k|f)i(r|f)(i|j)(o|a)i(t+|f+)
 Historiankirjoitus,hi(s|f)(t|f)o(r|c)i(a|o)n(k|f)ir(i|j)(t|f)u(s|f)
 Historioitsija,hi(s|f)(t|f)(o|a)(r|c)(i|j)(a|o)(i|j)(t|f)(i|j|ij)(a|o)
 Hyöty,h(y|h)(o|ö|a|ä)(t|f)y
@@ -53,10 +53,10 @@ Ihmis-,(i|j)(h|b|d)(m|w)i(s|f)
 Inhimillinen,(i|j)n(h|b|d)i(m|w)il+in(e|c)
 Intellektuelli,(i|j)n(t|f)(e|c)l+(e|c)(k|f)(t|f)u(e|c)l+i
 Intressi,(i|j)(n|u)(t|f)(r|c)(e|c)(s+|f+)i
-Irrottaa,(i|j)(r+|c+)(o|a)(t+|f+)(aa+|ää+|oo+)
-Irtautua,(i|j)(r+|c+)(t|f)(o|a)(u|o)(t+|f+)(u|o)(a+|ä+|o+)
+Irrottaa,(i|j)(r+|c+)(o|a)i?(t+|f+)
+Irtautua,(i|j)(r+|c+)(t|f)(o|a)(u|o)(t+|f+)
 Isänmaa,(i|j)(s|f)(ä|a)nma+
-Itsellisyys,(i|j)(t|f)(s|f)(e|c)l+i(s|f)(y+|h+)(s|f)
+Itsellisyys,(i|j)(t|f)(s|f)(e|c)l+i(s|f)y+(s|f)
 Itsemääräys,(i|j)(t|f)(s|f)(e|c)(m|w)..(r|c).(y|h).
 itsenäinen,(i|j)(t|f)(s|f)(e|c)(n|u)(a|ä)i(n|u)(e|c)(n|u)
 Jakaa,(i|j)(a|o)(k|f)(a+|o+)
@@ -97,7 +97,7 @@ Kulmakunta,(k|f)ul(m|w)(a|o)(k|f)un(t|f)(a|o)
 Kulttuuri,(k|f)(u|n)l(t+|f+)(u+|n+)(r|c)i
 Kuningas,(k|f)unin.(a|o)(s|f)
 Kuningaskunta,(k|f)unin.a(s|f)(k|f)un(t|f)a
-Kuninkaallinen,(k|f)(u|n)(n|u)i(n|u)(k|f)a+l+i(n|u)(e|c)(n|u)
+Kuninkaallinen,(k|f)(u|n)(n|u)i(n|u)(k|f)a+l+i(n|u)(e|c)
 Kunta,(k|f)un(t|f)(a|o)
 Kysymys,(k|f)(y|h)(s|f)(y|h)(m|w)(y|h)(s|f)
 Käsitellä,(k|f)(ä|a)(s|f)i(t|f)+(e|c)l+(a|ä)
@@ -129,7 +129,7 @@ Monarkki,(m|w)o(n|u)(a|o)(r|c)(f+|k+)i
 Moraali,(m|w)(o|a)(r|c)(a+|o+)li
 Muodollinen,(m|w)u(o|a)(d|b|h)(o|a)l+i(n|u)(e|c)(n|u)
 Muodostaa,(m|w)u(o|a)(d|b|h)o(s|f)(t|f)(a+|o+)
-Muodostua,(m|w)u(o|a)(d|h|b|t)(o|a)(s|f)(t|f)(u|n)(a+|o+)
+Muodostua,(m|w)u(o|a)(d|h|b|t)(o|a)(s|f)(t|f)(u|n)
 Muotoutua,(m|w)u(o|a)(t|f)(o|a)u(t|f)(u|n)(a+|o+)
 Myytti,(m|w)(y+|h+)(t+|f+)i
 Määräys,(m|w)(a+|ä+|ö+|o+)r(ä+|a+|ä+|o+|ö+)(y|h|b|d)(s|f)
@@ -148,15 +148,15 @@ Patriotism,patriotism
 Periaate,p(e|c)(r|c)i(a+|o+)(t|f)(e|c)
 Periodi,p(e|c)ri(o|a)(d|b|h)i
 Perustaa,p(e|c)ru(s|f|g)(t|f)aa
-Perustuslaki,p(e|c)(r|c)(u|n)(s|f)(t|f)(u|n)(s|f)l(a|o)(k|f)i
+Perustuslaki,p(e|c)(r|c)(u|n)(s|f)(t|f)(u|n)(s|f)l(a|o)(k|f)?i
 Pietari,pi(e|c)(t|f)(a|o)(r|c)i
 Pohjoismaa,po(h|b)joi(s|f)(m|w)a
 Politiikka,poli(t|f)(i+)(k+|f+)a
 Provinssi,p(r|c)(o|a|u)(v|w)in+(s+|f+)i
 Puhe,p(u|n)(h|d|b)(e|c)
 Puolustaa,p(u|n)(o|a)l(u|n)(s|f)(t|f)(a+|o+)
-Pykälä,p(y|h)(k|f)(a|ä)l(<a|ä)
-Päätös,p(ä+|a+)(t|f)(o|ö)(s|f)
+Pykälä,py(k|f)(a|ä)l(a|ä)
+Päätös,p(ä+|a+)(t|f)(o|ö)
 Raha,ra(h|b)a
 Rahoittaa,ra(h|b)oi(t+|f+)(a+|o+)
 Raja,r(a|o)j(a|o)
@@ -169,7 +169,7 @@ Retoriikka,r(e|c)(t|f)(o|a)ri+(k+|f+)(a|o)
 Riidanalainen,ri+(t|f|d|b|h)(a|o)n(a|o)l(a|o)in(e|c)n
 Riitainen,ri+(t|f)(a|o)in(e|c)n
 Riski,ri(s|f)(k|f)i
-Ruhtinaskunta,r(u|n)h(t|f)i(n|u)(a|o)(s|f)(k|f)(u|n)(n|u)(t|f)(a|o)
+Ruhtinaskunta,r(u|n)h(t|f)i(n|u)(a|o)(s|f)(k|f)(u|n)(n|u).(a|o)
 Ruotsalainen,ruo(t|f)(s|f)(a|o)l(a|o)in(e|c)n
 Ruotsi,r(u|n)o(t|f)(s|f)i
 Sanomalehti,(s|f)(a|o)n(o|a)(m|w)(a|o)l(e|c)(h|b|y)(t|f)(i|j)
@@ -215,7 +215,7 @@ Valta,(v|w|m)(a|o)l(t|f)(a|o)
 Valtakunta,(v|w|m)al(t|f)a(k|f)un(t|f)a
 Valtias,(v|w|m)(a|o)l(t|f)(i|ij)(a|o)(s|f)
 Valtio,(v|w|m)(a|o)l(t+|f+)io
-Valtiomuoto,(v|w|m)al(t|f)io(m|w)uo()(t|f)o
+Valtiomuoto,(v|w|m)al(t|f)io(m|w)uo(t|f)o
 Valtionjohto,(v|w|m)(a|o)l(t|f)io(n|u)?(j|i)o(h|b)(t|f)o
 Valtiopäivät,(v|w|m)(a|o)l(t|f)io.(ä|ö|a|o)i(v|w)(ä|a|ö|o)(t|f)
 valtiosääntö,(v|w|m)al(t|f)ion?(s|f)(a+|ä+)n(t|f)(o|ö)
@@ -234,9 +234,9 @@ Virallinen,(w|v|m)i(r|c)(a|o)l+i(n|u)(e|c)(n|u)
 Virkamies,(w|v|m)i(r|c)(k|f)(a|o)(m|w)i(e|c)(s|f)
 Voima,(w|v|m)oi(m|w)(a|o)
 Vuosisata,(w|v|m)u(o|a)(s|f)i(s|f)(a|o)(t|f)(a|o)
-Yhdistyä,yh(d|b|h|t)i(s|f)(t+|f+)(y|h)(a+|ä+)
-Yhdistää,yh(d|b|h)i(s|f)(t|f)(a+|ä+)
-Yhteiskunnallinen,y(h|y)(t|f)(e|c)i(s|f)(k|f)u*n*al+i
+Yhdistyä,yh(d|b|h|t)i(s|f)(t+|f+).(a+|ä+)
+Yhdistää,yh(d|b|h)i(s|f)(t|f)
+Yhteiskunnallinen,y(h|y)(t|f)(e|c)i(s|f)(k|f)[un]
 Yhteiskunta,yh(t|f)(e|c)i(s|f)(k|f)u*n*(t|f)(a|o)
 Yhteistoiminta,yh(t|f)(e|c)i(s|f)(t|f)(o|a)i(m|w)in(t|f)(a|o)
 Yhteistyö,yh(t|f)(e|c)i(s|f)(t|f)(y|h)(o|ö)
@@ -247,4 +247,4 @@ Yleinen,yl(e|c)i(n|u)(e|c)(n|u)
 Yleis-,yl(e|c)i(s|f)
 Yliopisto,yli(o|a)pi(s|f)(t|f)(o|a)
 Älykkö,äl(y|h)(k+|f+)(o|ö)
-Älyllinen,äl(y|h)l+in(e|c)n
+Älyllinen,äl(y|h)l+in(e|c)
