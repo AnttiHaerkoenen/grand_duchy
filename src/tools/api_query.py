@@ -311,7 +311,7 @@ if __name__ == '__main__':
 
     save_frequencies(
         regex_dict=words,
-        output_dir=output_dir / 'frequencies_fi_newspapers',
+        output_dir=Path('../../data/processed') / 'frequencies_fi_newspapers',
         korp_url='https://korp.csc.fi/cgi-bin/korp.cgi',
         corpora=corpora,
     )
