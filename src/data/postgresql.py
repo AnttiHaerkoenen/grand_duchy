@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
     engine = create_engine(database_url)
 
-    df = pd.read_sql(
+    df1 = pd.read_sql(
         """
         SELECT *
         FROM kwic_sv_riksdag
@@ -94,4 +94,14 @@ if __name__ == '__main__':
         con=engine,
     )
 
-    print(df.columns)
+    df2 = pd.read_sql(
+        """
+        SELECT *
+        FROM kwic_fi_newspapers
+        WHERE term='suomi';
+        """,
+        con=engine,
+    )
+
+    print(df1.columns)
+    print(df2.columns)
