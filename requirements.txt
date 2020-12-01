@@ -44,7 +44,7 @@ numpy==1.17.3
 olefile==0.46
 packaging==19.2
 pandas==0.25.3
-Pillow==6.2.1
+Pillow==7.1.0
 plotly==4.3.0
 psycopg2 @ file:///home/conda/feedstock_root/build_artifacts/psycopg2_1599504168958/work
 pyasn1==0.4.6
