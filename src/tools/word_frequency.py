@@ -62,6 +62,7 @@ def get_frequency_by_year(
         frequencies.append(freq)
 
     result = pd.concat(frequencies, axis=1).T
+    result.columns = result.rename(columns=lambda w: w.replace(' ', '_') if w != 'Unnamed: 0' else w)
 
     return result
 

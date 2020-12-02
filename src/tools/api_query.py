@@ -223,6 +223,7 @@ def save_frequencies(
     data_regex = pd.DataFrame.from_dict(freqs_regex)
 
     data_totals = pd.Series(query_totals(korp_url, corpora)).sort_index()
+    data_totals = data_totals.rename(columns=lambda w: w.replace(' ', '_') if w != 'Unnamed: 0' else w)
 
     data_lemma_relative = data_lemma.div(data_totals, axis=0) * 100_000
     data_regex_relative = data_regex.div(data_totals, axis=0) * 100_000
