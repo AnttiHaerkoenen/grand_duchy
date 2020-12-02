@@ -175,7 +175,7 @@ Panslavism,p(a|o)nslavism
 Paragraf,p(a|o)(r|c)(a|o)g(r|c)(a|o)f
 Parlament,p(a|o)(r|c)l(a|e|ie|o)(m|w)(e|c)(n|u)(t|f)
 Parlamentarianism,p(a|o)(r|c)l(a|e|ie|o)mentar(ian)?ism
-Parlamentarisk regering,"p(a|o)(r|c)l(a|e|ie|o)(m|w)(e|c)(n|u)(t|f)(a|o)riska? .{1,20}(r|c)(e|c)g(e|c)(r|c)i(n|u)g"
+Parlamentarisk regering,"p(a|o)(r|c)l(a|e|ie|o)(m|w)(e|c)(n|u)(t|f)(a|o)riska? [^.]{1,20}(r|c)(e|c)g(e|c)(r|c)i(n|u)g"
 Partifanatism,p(a|o)(r|c)t(y|i|ie)fanatism
 Partikularism,p(a|o)(r|c)tikularism
 Patriotism,p(a|o)t(r|c)iotism
