@@ -93,7 +93,7 @@ Historieskrivning,hi(s|f)(t|f)o(r|c)i(e|c)(s|f)(k|f)(r|c)i(v|w)(n|u)i(n|u)g
 Historiker,hi(f|s)(t|f)o(r|c)i(k|f)(e|c)(r|c)
 Historisk,hi(s|f)(t|f)(o|a)(r|c)i(s|f)(k|f)
 Human,h(u|n)(m|w)(a|o)(n|u)
-Humanism,humanism
+Humanism,h(u|n)(m|w)(a|o)(n|u)ism
 Huvud,h(u|n)(f|)(v|w)(u|n)(d|b|h)
 Härskare,h(ä|a)(r|c)(s|f)(k|f)a(r|c)(e|c)
 Hävdateckning,h(ä|ö|a|o)(v|w)(d|b|h)(a|o)(t|f)(e|c)c(k|f)ning
@@ -171,31 +171,31 @@ Olik,oli(k|f)
 Område,(å|a|o)(m|w)(r|c)(o|a|å|ä)(d|b|h)(e|c)
 Omtvistad,o(m|w)(t|f)(v|w)i(s|f)(t|f)(a|o)(d|b|h)
 Orts-,o(r|c)(t|f)(s|f)
-Panslavism,panslavism
+Panslavism,p(a|o)nslavism
 Paragraf,p(a|o)(r|c)(a|o)g(r|c)(a|o)f
 Parlament,p(a|o)(r|c)l(a|e|ie|o)(m|w)(e|c)(n|u)(t|f)
-Parlamentarianism,parl(a|e|ie|o)mentar(ian)?ism
-Parlamentarisk regering,p(a|o)(r|c)l(a|e|ie|o)(m|w)(e|c)(n|u)(t|f)(a|o)riska? regering
-Partifanatism,part(y|i|ie)fanatism
-Partikularism,partikularism
-Patriotism,patriotism
+Parlamentarianism,p(a|o)(r|c)l(a|e|ie|o)mentar(ian)?ism
+Parlamentarisk regering,"p(a|o)(r|c)l(a|e|ie|o)(m|w)(e|c)(n|u)(t|f)(a|o)riska? .{1,20}(r|c)(e|c)g(e|c)(r|c)i(n|u)g"
+Partifanatism,p(a|o)(r|c)t(y|i|ie)fanatism
+Partikularism,p(a|o)(r|c)tikularism
+Patriotism,p(a|o)t(r|c)iotism
 Pengar,p(f|)(e|c)(n+|u+)g(a|o)(r|f)
 Penning,p(f|)(e|c)(n+|u+)i(n|u)g
 Period,p(e|c)(r|c)i(o|a)(d|b|h)
 Pest,p(e|c)(s|f)(t|f)
-Petersburg,p(e|c)(t|f)(e|c)(r|c)(s|f)(b|d|h)(u|n)(r|c)g
+Sankt Petersburg,p(e|c)(t|f)(e|c)(r|c)(s|f)(b|d|h)(u|n)(r|c)g
 Pietism,pietism
 Polism,polism
 Politik,poli(t|f)i(k|f)
 Positivism,positivism
 Princip,p(r|c)i(n|u)(c|r)ip
-Protektionism,protektionism
+Protektionism,p(r|c)o(t|f)(e|c)ktionism
 Protest,p(r|c)o(t|f)(e|c)(s|f)(t|f)
 Provins,p(r|c)o(v|w)i(n|u)(s|f)
 Publicera,pu(b|d|h)lic(e|c)(r|c)(a|o)
-Radikalism,(r|c)adikalism
-Rationalism,(r|c)ationalism
-Realism,(r|c)(e|c)alism
+Radikalism,(r|c)(a|o)dik(a|o)lism
+Rationalism,(r|c)(a|o)tion(a|o)lism
+Realism,(r|c)(e|c)(a|o)lism
 Regel,(r|c)(e|c)g(e|c)l
 Regent,(r|c)(e|c)g(e|c)(n|u)(t|f)
 Regering,(r|c)(e|c)g(e|c)(r|c)i(n|u)g
@@ -243,7 +243,7 @@ Språkdualism,(s|f)p(r|c)(å|ä|ö|o|a)(k|f)dualism
 Språkfanatism,(s|f)p(r|c)(å|ä|ö|o|a)(k|f)fanatism
 Stat,(s|f)(t|f)(a|o)(t|f)
 Statsform,(s|f)(t|f)(a|o)(t|f)(s|f)fo(r|c)(m|w)
-Statsorganism,statsorganism
+Statsorganism,(s|f)(t|f)(a|o)(t|f)(s|f)organism
 Statsskick,(s|f)(t|f)(a|o)(t|f)(ss+|ff+)(k|f)ic(k|f)
 Status,(s|f)(t|f)(a|o)(t|f)(u|n)(s|f)
 Storfurstendöme,(s|f)(t|f)o(r|c)fu(r|c)(s|f)(t|f)(e|c)n(d|b|h)(ö|o)(m|w)(e|c)
