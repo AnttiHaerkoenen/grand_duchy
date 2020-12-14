@@ -2,9 +2,6 @@ Absolutism,absolutism
 Administrativ,a(d|b|h)(m|w)i(n|u)i(s|f)(t|f)(r|c)a(t|f)i(v|w)
 Akademi,a(k|f)(a|o)(d|b|h)(e|c)(m|w)i(a|o|)
 Allmoge,al+(m|w)og(e|c)
-Allmän,al+(m|w)(ä|ö|a|o)(n|u)
-Allmänna,al+(m|w)(ä|a|ö)(n+|u+)a
-Alternativ,al(t|f)(e|c)(r|c)(n|u)(a|o)(t|f)i(v|w)
 Amerikanism,amerikanism
 Anakronism,anakronism
 Anarkism,anarkism
@@ -24,7 +21,6 @@ Begrepp,(b|d)(e|c)g(r|c)(e|c)p+
 Bilda,(b|d)il(d|b|h)(a|o)
 Bonapartism,(b|d)onapartism
 Byråkratism,(b|d)yråkratism
-Byta,(b|d)(y|h)(t|f)(a|o)
 Central,(c|s|f|k)(e|c)(n|u)(t|f)(r|c)(a|o)l
 Cesarism,(c|k)esarism
 Chauvinism,chauvinism
@@ -32,24 +28,20 @@ Dagstidning,(d|b)(a|o)g(s|f)(t|f)i(d|b)(n|u)i(n|u)g
 Del,(d|b)(e|c)l
 Dela,(d|b)(e|c)l(a|o)
 Delstat,(d|b)(e|c)l(s|f)(t|f)(a|o)(t|f)
-Delta,(d|b)(e|c)l(t|f)(a|o)
 Demokrati,(d|b)(e|c)(m|w)(a|o)(k|f)(r|c)(a|o)(t|f)i
 Demokratism,(d|b)(e|c)mokratism
 Despotism,(d|b)(e|c)spotism
-Diskutera,(d|b)i(s|f)(k|f)(u|n)(t|f)(e|c)(r|c)(a|o)
 Dogmatism,(d|b)ogmatism
 Dynastisk,(d|b)(y|h)(n|u)a(s|f)(t|f)i(s|f)(k|f)
 Ekonomi,(e|c)(c|k)o(n|u)o(m|w)i
 Ekonomisk,(e|c)(c|k)o(n|u)o(m|w)i(s|f)(k|f)
 Epok,(e|c)p(o|a)(k|f)
-Era,(e|c)(r|c)a
 Europa,(e|c)(u|n)(r|c)o+p+(a|o)
 Europeisk,(e|c)u(r|c)(o|a)p(e|c)i(s|f)(k|f)
 Fanatism,fanatism
 Fatalism,fatalism
 Federalism,federalism
 Fennicism,fennicism
-Finans,fi(n|u)(a|o)(n|u)(s|f)
 Finland,fi(n|u)l(a|o)(n|u)(d|b|h)
 Finlandism,finlandism
 Finländare,fi(n|u)l(ä|a)(n|u)(d|b|h)(a|ä)(r|c)(e|c)
@@ -60,9 +52,8 @@ Finska,fi(n|u)(s|f)(k|f)(a|o)
 Folk,fol(k|f)
 Folkrepresentation,fol(k|f)(r|c)(e|c)p(r|c)(e|c)(s|f)(e|c)(n|u)(t|f)a(t|f)io(n|u)
 Form,fo(r|c)(m|w)
-Formalism,formalism
+Formalism,fo(r|c)(m|w)alism
 Fred,f(r|c)(e|c)(d|b|h)
-Fråga,f(r|c)(å|a|ä|ö|o)g(a|o)
 Furstendöme,fu(r|c)(s|f)(t|f)(e|c)n(d|b|h)(ö|o)(m|w)(e|c)
 Förbi,f(ö|o)(r|c)(b|d|h)i
 Fördrag,f(o|ö)(r|c)(d|b|h)(r|c)(a|o)g
@@ -97,8 +88,8 @@ Humanism,h(u|n)(m|w)(a|o)(n|u)ism
 Huvud,h(u|n)(f|)(v|w)(u|n)(d|b|h)
 Härskare,h(ä|a)(r|c)(s|f)(k|f)a(r|c)(e|c)
 Hävdateckning,h(ä|ö|a|o)(v|w)(d|b|h)(a|o)(t|f)(e|c)c(k|f)ning
-Idea,(l|i)(d|b|h)(e|c)(a|)
-Idealism,(l|i)(d|b|h)(e|c)(a|)lism
+Idea,(l|i)(d|b|h)(e|c)a
+Idealism,(l|i)(d|b|h)(e|c)alism
 Ifrågasatta,(l|i)f(r|c)(å|a|ä|o|ö)g(a|o)(s|f)(a|o)(t+|f+)(a|o)
 Imperialism,imperialism
 Imperium,(i|j)(m|w)p(e|c)(r|c)i(u|n)(m|w)
@@ -222,8 +213,6 @@ Samhället,(s|f)a(m|w)h(a|ä)l+(e|c)(t|f)
 Samhällsform,(s|f)a(m|w)h(ä|a)l+(s|f)fo(r|c)(m|w)
 Sankt Petersburg,(s|f)(a|o|)(n|u|)(k|f|)(t|f)( |\-)?p(e|c)(t|f)(e|c)(r|c)(s|f)?(b|d|h)(u|n)(r|c)g
 Schism,(s|f)(ch|k)ism
-Sedel,(s|f)(e|c)(d|b|h|t)(e|c)l
-Sekel,(s|f)(e|c)(k|f)(e|c)l
 Sekterism,(s|f)ekterism
 Senat,(s|f)(e|c)(n|u)(a|o)(t|f)
 Separatismen,(s|f)(e|c)paratism
@@ -262,7 +251,6 @@ System,(s|f)(y|h)(s|f)(t|f)(e|c)(m|w)
 Talet,(t|f)(a|o)l(e|c)(t|f)
 Territorium,(t|f)(e|c)(r+|c+)i(t|f)o(r|c)i(u|n)(m|w)
 Terrorism,(t|f)(e|c)rrorism
-Tid,(t|f)i(d|b|h)
 Tidig,(t|f)i(d|b|h)ig
 Tidigare,(t|f)i(d|b|h)ig(a|o)(r|c)(e|c)
 Tidstrogen,(t|f)i(d|b|h)(s|f)(t|f)(r|c)og(e|c)(n|u)
@@ -271,12 +259,10 @@ Trakt,(t|f)(r|c)(a|o)(k|f)(t|f)
 Tsar,(t|f)(s|f)(a|o)(r|c)
 Tvistig,(t|f)(v|w)i(s|f)(t|f)ig
 Underståte,(u|n)(n|u)(d|b|h)(e|c)(r|c)(s|f)(t|f)(o|a|å|ä|ö)(t|f)(e|c)
-Universitet,(u|n)(n|u)i(v|w)(e|c)(r|f)(s|f)i(t|f)(e|c)(t|f)
-Utforma,(u|n)(t|f)f(o|a)(r|c)(m|w)(a|o)
+Utforma,(u|n)(t|f)f(o|a)(r|c)(m|w)
 Utilitarism,(u|n)tilitarism
 Utvecklad,(u|n)(t|f)(v|w)(e|c)(c|e)(k|f)l(a|o)(d|b|h)
 Utverka,(u|n)(t|f)(v|w)(e|c)(r|c)(k|f)(a|o)
-Valuta,(v|w)(a|o)l(u|n)(t|f)(a|o)
 Vandalism,(v|w)andalism
 Vaxlä,(v|w)(a|ä|o|ö)xl(a|o)
 Vetenskap,(v|w)(e|c)(t|f)(e|c)(n|u)(s|f)(k|f)(a|o)p
