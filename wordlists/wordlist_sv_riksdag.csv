@@ -80,9 +80,9 @@ Gensaga,g(e|c)(n|u)(s|f)(a|o)g(a|o)
 Geografisk,g(e|c)og(r|c)(a|o)fi(s|f)(k|f)
 Gestalt,g(e|c)(s|f)(t|f)(a|o)l(t|f)
 Grundlag,g(r|c)(u|n)(n|u)(d|b|h)l(a|o)g
-Gräns,g(r|c)(ä|ä)(n|u)(s|f)
-Gränslandet,g(r|c)(a|ä)(n|u)(s|f)l(a|o)(n|u)(d|b|h)(e|c)(t|f)
-Gränslinje,g(r|c)(a|ä)(n|u)(s|f)li(n|u)j(e|c)
+Gräns,g(r|c)(e|ä|ä)(n|u)(z|s|f)
+Gränslandet,g(r|c)(e|ä|ä)(n|u)(z|s|f)l(a|o)(n|u)(d|b|h)(e|c)(t|f)
+Gränslinje,g(r|c)(e|ä|ä)(n|u)(z|s|f)li(n|u)j(e|c)
 Gudasaga,g(u|n)(d|b|h)(a|o)(s|f)(a|o)g(a|o)
 Hertig,h(e|c)(r|c)(t|f)ig
 Hertigdöme,h(e|c)(r|c)(t|f)ig(d|b|h)(ö|o)(m|w)(e|c)
@@ -98,7 +98,7 @@ Huvud,h(u|n)(f|)(v|w)(u|n)(d|b|h)
 Härskare,h(ä|a)(r|c)(s|f)(k|f)a(r|c)(e|c)
 Hävdateckning,h(ä|ö|a|o)(v|w)(d|b|h)(a|o)(t|f)(e|c)c(k|f)ning
 Idea,(l|i)(d|b|h)(e|c)(a|)
-Idealism,idealism
+Idealism,(l|i)(d|b|h)(e|c)(a|)lism
 Ifrågasatta,(l|i)f(r|c)(å|a|ä|o|ö)g(a|o)(s|f)(a|o)(t+|f+)(a|o)
 Imperialism,imperialism
 Imperium,(i|j)(m|w)p(e|c)(r|c)i(u|n)(m|w)
@@ -127,11 +127,11 @@ Knutpatriotism,knutpatriotism
 Kombinera,ko(m|w)(b|d|h)i(n|u)(e|c)(r|c)(a|o)
 Kommunism,kommunism
 Koncept,(k|f)(o|a)(n|u)(c|e|s|f)(e|c)p(t|f)
-Konservatism,konservatism
-Konstitution,ko(n|u)(s|f)i(t|f)(u|n)(t|f)io(n|u)
-Konstitutionalism,konstitutionalism
+Konservatism,(k|f)(o|a)(n|u)servatism
+Konstitution,(k|f)(o|a)(n|u)(s|f)i(t|f)(u|n)(t|f)io(n|u)
+Konstitutionalism,(k|f)(o|a)(n|u)stitutionalism
 Kontroversiell,(k|f)(o|a)(n|u)(t|f)(r|c)o(v|w)(e|c)(r|c)(s|f)i(e|c)l+
-Kosmopolitism,kosmopolitism
+Kosmopolitism,(k|f)(o|a)smopolitism
 Krig,k(r|c)ig
 Kultur,kul(t|f)u(r|c)
 Kung,k(u|n)(n|u)g
@@ -143,7 +143,7 @@ Landtag,l(a|o)(n|u)(d|b|h)(t|f)(a|o)g
 Liberal,li(b|d|h)(e|c)(r|c)(a|o)l
 Liberalism,li(b|d|h)(e|c)(r|c)(a|o)lism
 Lokal,lo(k|f)(a|o)l
-Lokalpatriotism,lokalpatriotism
+Lokalpatriotism,lo(k|f)(a|o)lpatriotism
 Makt,(m|w)(a|o)(k|f)(t|f)
 Marskalk,(m|w)(a|o)(r|c)(s|f)(k|f)(a|o)l(k|f)
 Materialism,(m|w)aterialism
@@ -237,7 +237,7 @@ Skepticism,(s|f)kepticism
 Skilja,(s|f)(k|f)ilj(a|o)
 Slant,(s|f)l(a|o)(n|u)(t|f)
 Social,(s|f)o(c|e)i(a|o)l
-Socialism,(s|f)ocialism
+Socialism,(s|f)o(c|e)i(a|o)lism
 Språk,(s|f)p(r|c)(å|ä|ö|o|a)(k|f)
 Språkdualism,(s|f)p(r|c)(å|ä|ö|o|a)(k|f)dualism
 Språkfanatism,(s|f)p(r|c)(å|ä|ö|o|a)(k|f)fanatism
