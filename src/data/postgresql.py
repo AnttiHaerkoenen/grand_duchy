@@ -57,13 +57,17 @@ def populate_database(
                 print(f"Database connection shut down: {str(e)}")
                 return
 
-        try:
-            engine.execute(
-                f"CREATE INDEX {directory}_index ON {directory} (term, year)"
-            )
-            print(f"Index created for {directory}")
-        except ProgrammingError:
-            print("Index creation failed: Undefined table")
+        print("Indexing...")
+        for i in range(1, 6):
+            print(f'Attempt {i}:')
+            try:
+                engine.execute(
+                    f"CREATE INDEX {directory}_index ON {directory} (term, year)"
+                )
+                print(f"Index created for {directory}")
+                break
+            except ProgrammingError:
+                print("Index creation failed: Undefined table")
 
 
 if __name__ == '__main__':
@@ -76,32 +80,32 @@ if __name__ == '__main__':
     with open('../../secrets') as fopen:
         database_url = fopen.read()
 
-    # populate_database(
-    #     data_dir=data_dir,
-    #     database_url=database_url,
-    #     kwic_dirs=kwic_dirs,
-    #     size_limit=2000,
+    populate_database(
+        data_dir=data_dir,
+        database_url=database_url,
+        kwic_dirs=kwic_dirs,
+        size_limit=2000,
+    )
+
+    # engine = create_engine(database_url)
+    #
+    # df1 = pd.read_sql(
+    #     """
+    #     SELECT *
+    #     FROM kwic_sv_riksdag
+    #     WHERE term='parlamentarisk_regering';
+    #     """,
+    #     con=engine,
     # )
-
-    engine = create_engine(database_url)
-
-    df1 = pd.read_sql(
-        """
-        SELECT *
-        FROM kwic_sv_riksdag
-        WHERE term='ateism';
-        """,
-        con=engine,
-    )
-
-    df2 = pd.read_sql(
-        """
-        SELECT *
-        FROM kwic_fi_newspapers
-        WHERE term='suomi';
-        """,
-        con=engine,
-    )
-
-    print(df1.columns)
-    print(df2.columns)
+    #
+    # df2 = pd.read_sql(
+    #     """
+    #     SELECT *
+    #     FROM kwic_fi_newspapers
+    #     WHERE term='suomi';
+    #     """,
+    #     con=engine,
+    # )
+    #
+    # print(df1)
+    # print(df2)
