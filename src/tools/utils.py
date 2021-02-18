@@ -1,3 +1,4 @@
+from collections import Generator
 from pathlib import Path
 import re
 
@@ -7,7 +8,7 @@ import pandas as pd
 def text_file_generator(
         data_path: Path,
         rule: str,
-) -> tuple:
+) -> Generator:
     if isinstance(data_path, str):
         data_path = Path(data_path)
 

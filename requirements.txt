@@ -1,52 +1,51 @@
 alabaster==0.7.12
 asn1crypto==1.2.0
-awscli==1.16.271
+awscli==1.18.188
 Babel==2.7.0
 bokeh==1.4.0
 boto==2.49.0
-boto3==1.10.15
-botocore==1.13.15
-certifi==2020.6.20
+boto3==1.16.28
+botocore==1.19.28
+Brotli @ file:///tmp/build/80754af9/brotli-split_1602517619121/work
+brotlipy==0.7.0
+certifi==2020.12.5
 cffi==1.13.1
-chardet==3.0.4
+chardet @ file:///tmp/build/80754af9/chardet_1605303185383/work
 Click==7.0
 colorama==0.4.1
-coverage==4.5.4
-cryptography==3.2.1
+coverage==5.3
+cryptography @ file:///tmp/build/80754af9/cryptography_1605544487601/work
 cycler==0.10.0
-dash==1.4.1
-dash-core-components==1.3.1
-dash-daq==0.3.3
-dash-html-components==1.0.1
-dash-renderer==1.1.2
-dash-table==4.4.1
+dash==1.17.0
+dash-core-components==1.13.0
+dash-html-components==1.1.1
+dash-renderer==1.8.3
+dash-table==4.11.0
 docutils==0.15.2
-dtale==1.7.5
 entrypoints==0.3
 flake8==3.7.9
 Flask==1.1.1
 Flask-Compress==1.4.0
 future==0.18.2
-gensim==3.8.1
 gunicorn==20.0.4
 idna==2.8
 imagesize==1.1.0
 itsdangerous==1.1.0
 Jinja2==2.10.3
 jmespath==0.9.4
-kiwisolver==1.1.0
-lz4==3.0.2
+kiwisolver @ file:///tmp/build/80754af9/kiwisolver_1604014535162/work
 MarkupSafe==1.1.1
 matplotlib==3.1.2
 mccabe==0.6.1
+mkl-service==2.3.0
 nltk==3.4.5
 numpy==1.17.3
 olefile==0.46
 packaging==19.2
 pandas==0.25.3
-Pillow==7.1.0
+Pillow==6.2.1
 plotly==4.3.0
-psycopg2 @ file:///home/conda/feedstock_root/build_artifacts/psycopg2_1599504168958/work
+psycopg2 @ file:///home/conda/feedstock_root/build_artifacts/psycopg2_1602596783422/work
 pyasn1==0.4.6
 pycodestyle==2.5.0
 pycparser==2.19
@@ -54,21 +53,17 @@ pyflakes==2.1.1
 Pygments==2.4.2
 pyOpenSSL==19.0.0
 pyparsing==2.4.2
-PyQt5==5.12.3
-PyQt5-sip==4.19.18
-PyQtWebEngine==5.12.1
-PySocks==1.7.1
-python-dateutil==2.8.0
-python-dotenv==0.10.3
+PySocks @ file:///tmp/build/80754af9/pysocks_1605305779399/work
+python-dateutil==2.8.1
 pytz==2019.3
 PyYAML==5.1.2
 requests==2.22.0
 retrying==1.3.3
-rsa==3.4.2
-s3transfer==0.2.1
+rsa==4.5
+s3transfer==0.3.3
 scipy==1.3.2
+sip==4.19.13
 six==1.12.0
-smart-open==1.9.0
 snowballstemmer==2.0.0
 Sphinx==2.2.1
 sphinxcontrib-applehelp==1.0.1

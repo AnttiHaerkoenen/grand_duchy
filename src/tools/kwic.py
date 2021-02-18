@@ -178,6 +178,7 @@ if __name__ == '__main__':
         rule=rule,
         wordlist=wordlist,
         window_size=300,
-        size_limit=2000,
+        size_limit=250_000,
         word_filter_rule='all',
+        # word_filter_rule=lambda w: 'k' <= w.lower() <= 'ke',
     )
