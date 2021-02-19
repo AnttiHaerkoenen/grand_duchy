@@ -1,4 +1,4 @@
-from collections import Generator
+from collections.abc import Generator
 from pathlib import Path
 import re
 
@@ -15,10 +15,11 @@ def text_file_generator(
     if not data_path.exists():
         raise FileNotFoundError(f"Specified data path {str(data_path)} does not exist.")
 
-    for path in data_path.rglob(rule):
-        text = path.read_text()
-        year = re.findall(r'\d{4}', path.name)[0]
+    paths = list(data_path.rglob(rule))
+    years = [re.findall(r'\d{4}', path.name)[0] for path in paths]
 
+    for path, year in sorted(zip(paths, years), key=lambda x: x[1]):
+        text = path.read_text()
         yield path, year, text
 
 
@@ -35,6 +36,6 @@ def read_word_list(file):
 
 
 if __name__ == '__main__':
-    DATA = '../../data/raw'
-    texts = sorted(text_file_generator(DATA, 'roa_1809*.txt'))
-    print(len(texts))
+    DATA = Path.home() / 'gd_data/external/'
+    texts = text_file_generator(DATA, 'roa*.txt')
+    print([(p, y) for p, y, _ in texts])

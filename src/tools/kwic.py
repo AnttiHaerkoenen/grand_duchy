@@ -65,7 +65,7 @@ def get_kwic_for_word(
 
     for file, year, text in texts:
 
-        if len(rows) >= size_limit:
+        if len(rows) == size_limit:
             break
 
         matches = regex.finditer(text)
@@ -178,7 +178,7 @@ if __name__ == '__main__':
         rule=rule,
         wordlist=wordlist,
         window_size=300,
-        size_limit=250_000,
+        size_limit=10_000,
         word_filter_rule='all',
-        # word_filter_rule=lambda w: 'k' <= w.lower() <= 'ke',
+        # word_filter_rule=lambda w: w.lower() <= 'allmoge',
     )
