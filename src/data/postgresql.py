@@ -3,6 +3,7 @@ from typing import Sequence
 
 import pandas as pd
 from sqlalchemy import create_engine
+from sqlalchemy.engine import Engine
 from sqlalchemy.exc import ProgrammingError, OperationalError
 
 
@@ -57,6 +58,10 @@ def populate_database(
                 print(f"Database connection shut down: {str(e)}")
                 return
 
+        create_index(engine, directory)
+
+
+def create_index(engine: Engine, directory: str):
         print("Indexing...")
         for i in range(1, 6):
             print(f'Attempt {i}:')
@@ -65,9 +70,11 @@ def populate_database(
                     f"CREATE INDEX {directory}_index ON {directory} (term, year)"
                 )
                 print(f"Index created for {directory}")
-                break
+                return
             except ProgrammingError:
                 print("Index creation failed: Undefined table")
+
+        raise ConnectionError(f'Index creation for {directory} failed.')
 
 
 if __name__ == '__main__':
@@ -80,12 +87,12 @@ if __name__ == '__main__':
     with open('../../secrets') as fopen:
         database_url = fopen.read()
 
-    populate_database(
-        data_dir=data_dir,
-        database_url=database_url,
-        kwic_dirs=kwic_dirs,
-        size_limit=2000,
-    )
+        populate_database(
+            data_dir=data_dir,
+            database_url=database_url,
+            kwic_dirs=kwic_dirs,
+            size_limit=2000,
+        )
 
     # engine = create_engine(database_url)
     #

@@ -65,7 +65,7 @@ def get_kwic_for_word(
 
     for file, year, text in texts:
 
-        if len(rows) == size_limit:
+        if len(rows) >= size_limit:
             break
 
         matches = regex.finditer(text)
