@@ -2,12 +2,11 @@ from pathlib import Path
 
 import pandas as pd
 import requests
-from requests.exceptions import ReadTimeout, HTTPError
+from requests.exceptions import ConnectionError, HTTPError
 
 from src.tools.utils import read_word_list
 from src.tools.exceptions import EmptyDataFrameError
 
-TIMEOUT = 60
 HEADERS = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '
                   'AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -63,24 +62,24 @@ def make_request(
         url,
         query_params,
         retries=10,
+        timeout=120,
 ):
     print(f"Making query {query_params.get('cqp', query_params)}")
 
     for i in range(1, retries + 1):
         print(f"Attempt {i}")
         try:
-            timeout = TIMEOUT * i
             req = requests.get(
                 url=url,
-                timeout=timeout,
+                timeout=timeout * i,
                 headers=HEADERS,
                 params=query_params,
             )
             req.raise_for_status()
             print("Success!")
             return req.json()
-        except ReadTimeout as e:
-            print(f"Read timed out: {e}")
+        except ConnectionError as e:
+            print(f"Connection error: {e}")
             continue
         except HTTPError as e:
             print(f"HTTP Error: {e}")
