@@ -199,7 +199,7 @@ def query_totals(
     return totals
 
 
-@retry
+@retry()
 def save_frequencies(
         regex_dict: dict,
         output_dir: Path,
