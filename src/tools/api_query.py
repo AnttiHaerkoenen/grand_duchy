@@ -62,15 +62,14 @@ def combine_regex_and_lemma_df(
 def make_request(
         url,
         query_params,
+        retries=10,
 ):
     print(f"Making query {query_params.get('cqp', query_params)}")
 
-    for i in range(1, 6):
+    for i in range(1, retries + 1):
         print(f"Attempt {i}")
-
         try:
             timeout = TIMEOUT * i
-
             req = requests.get(
                 url=url,
                 timeout=timeout,
@@ -80,13 +79,11 @@ def make_request(
             req.raise_for_status()
             print("Success!")
             return req.json()
-
-        except ReadTimeout:
-            print("Read timed out")
+        except ReadTimeout as e:
+            print(f"Read timed out: {e}")
             continue
-
-        except HTTPError:
-            print("HTTP Error")
+        except HTTPError as e:
+            print(f"HTTP Error: {e}")
             continue
 
     return {
