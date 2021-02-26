@@ -5,7 +5,7 @@ import time
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
-from sqlalchemy.exc import ProgrammingError, OperationalError
+from sqlalchemy.exc import ProgrammingError, OperationalError, NoSuchTableError
 
 
 class DataBaseError(Exception):
@@ -98,11 +98,15 @@ def word_to_sql(
 
 @retry(20, 10)
 def create_index(engine: Engine, directory: str):
-    print("Indexing...")
-    engine.execute(
-        f"CREATE INDEX {directory}_index ON {directory} (term, year)"
-    )
-    print(f"Index created for {directory}")
+    try:
+        print("Indexing...")
+        engine.execute(
+            f"CREATE INDEX {directory}_index ON {directory} (term, year)"
+        )
+        print(f"Index created for {directory}")
+    except NoSuchTableError:
+        print(f"Index creation failed because table '{directory}' does not exist. "
+              f"Check if directory '{directory}' is empty.")
 
 
 if __name__ == '__main__':
