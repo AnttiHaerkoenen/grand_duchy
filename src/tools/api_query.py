@@ -1,4 +1,5 @@
 from pathlib import Path
+import time
 
 import pandas as pd
 import requests
@@ -12,6 +13,26 @@ HEADERS = {
                   'AppleWebKit/537.36 (KHTML, like Gecko) '
                   'Chrome/53.0.2785.143 Safari/537.36',
 }
+
+
+def retry(retries=10, timeout=5):
+    def wraps(f):
+        def inner(*args, **kwargs):
+            for i in range(retries):
+                if i > 0:
+                    print(f'Retrying, attempt {i}')
+                try:
+                    result = f(*args, **kwargs)
+                except Exception as e:
+                    print(f'Unknown error: {e}')
+                    time.sleep(timeout + i * 10)
+                    continue
+                else:
+                    return result
+            else:
+                print("Operation failed.")
+        return inner
+    return wraps
 
 
 def combine_regex_and_lemma_df(
@@ -178,6 +199,7 @@ def query_totals(
     return totals
 
 
+@retry
 def save_frequencies(
         regex_dict: dict,
         output_dir: Path,
@@ -235,6 +257,7 @@ def save_frequencies(
     data_regex_relative.to_csv(output_dir / 'regex_rel.csv')
 
 
+@retry()
 def save_kwics(
         regex_dict: dict,
         output_dir: Path,
