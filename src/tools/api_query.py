@@ -5,7 +5,7 @@ import pandas as pd
 import requests
 from requests.exceptions import ConnectionError, HTTPError
 
-from src.tools.utils import read_word_list
+from src.tools.utils import read_word_list, retry
 from src.tools.exceptions import EmptyDataFrameError
 
 HEADERS = {
@@ -13,26 +13,6 @@ HEADERS = {
                   'AppleWebKit/537.36 (KHTML, like Gecko) '
                   'Chrome/53.0.2785.143 Safari/537.36',
 }
-
-
-def retry(retries=10, timeout=5):
-    def wraps(f):
-        def inner(*args, **kwargs):
-            for i in range(retries):
-                if i > 0:
-                    print(f'Retrying, attempt {i}')
-                try:
-                    result = f(*args, **kwargs)
-                except Exception as e:
-                    print(f'Unknown error: {e}')
-                    time.sleep(timeout + i * 10)
-                    continue
-                else:
-                    return result
-            else:
-                print("Operation failed.")
-        return inner
-    return wraps
 
 
 def combine_regex_and_lemma_df(

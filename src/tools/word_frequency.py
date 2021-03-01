@@ -4,9 +4,10 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.tools.utils import text_file_generator, read_word_list
+from src.tools.utils import text_file_generator, read_word_list, retry
 
 
+@retry(5, 1)
 def get_frequency(
         data: str,
         rule: str,
@@ -34,6 +35,7 @@ def get_frequency(
     return pd.DataFrame(rows)
 
 
+@retry()
 def get_frequency_by_year(
         data,
         bins_file: str,

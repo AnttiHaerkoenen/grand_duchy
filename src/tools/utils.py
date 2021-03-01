@@ -35,6 +35,26 @@ def read_word_list(file):
     return {w.casefold(): r for w, r in zip(words, regex)}
 
 
+def retry(retries=10, timeout=5):
+    def wraps(f):
+        def inner(*args, **kwargs):
+            for i in range(retries):
+                if i > 0:
+                    print(f'Retrying, attempt {i}')
+                try:
+                    result = f(*args, **kwargs)
+                except Exception as e:
+                    print(f'Unknown error: {e}')
+                    time.sleep(timeout + i * 10)
+                    continue
+                else:
+                    return result
+            else:
+                print("Operation failed.")
+        return inner
+    return wraps
+
+
 if __name__ == '__main__':
     DATA = Path.home() / 'gd_data/external/'
     texts = text_file_generator(DATA, 'roa*.txt')
