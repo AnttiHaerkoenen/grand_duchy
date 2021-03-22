@@ -31,7 +31,7 @@ gunicorn==20.0.4
 idna==2.8
 imagesize==1.1.0
 itsdangerous==1.1.0
-Jinja2==2.10.3
+Jinja2==2.11.3
 jmespath==0.9.4
 kiwisolver @ file:///tmp/build/80754af9/kiwisolver_1604014535162/work
 MarkupSafe==1.1.1
