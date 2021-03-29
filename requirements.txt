@@ -50,7 +50,7 @@ pyasn1==0.4.6
 pycodestyle==2.5.0
 pycparser==2.19
 pyflakes==2.1.1
-Pygments==2.4.2
+Pygments==2.7.4
 pyOpenSSL==19.0.0
 pyparsing==2.4.2
 PySocks @ file:///tmp/build/80754af9/pysocks_1605305779399/work
