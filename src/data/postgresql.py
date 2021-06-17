@@ -112,7 +112,7 @@ def create_index(engine: Engine, directory: str):
 if __name__ == '__main__':
     kwic_dirs = (
         'kwic_sv_riksdag',
-        'kwic_fi_newspapers',
+        # 'kwic_fi_newspapers',
     )
     data_dir = Path.home() / 'gd_data/processed'
 

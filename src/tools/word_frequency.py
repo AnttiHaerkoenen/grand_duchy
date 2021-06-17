@@ -38,8 +38,8 @@ def get_frequency(
 @retry()
 def get_frequency_by_year(
         data,
-        bins_file: str,
-        wordlist: str,
+        bins_file: Path,
+        wordlist: Path,
 ):
     frequencies = []
     bins = pd.read_csv(bins_file)

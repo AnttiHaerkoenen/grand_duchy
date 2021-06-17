@@ -103,7 +103,7 @@ def save_kwic_by_word(
         input_dir: Path,
         output_dir: Path,
         rule: str,
-        wordlist: str,
+        wordlist: Path,
         window_size: int,
         size_limit: int,
         word_filter_rule: Union[str, Callable[[str], bool]],
@@ -180,5 +180,5 @@ if __name__ == '__main__':
         window_size=300,
         size_limit=10_000,
         word_filter_rule='all',
-        # word_filter_rule=lambda w: w.lower() <= 'allmoge',
+        # word_filter_rule=lambda w: w.lower() >= 'koncept',
     )
