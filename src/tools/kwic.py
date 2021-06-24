@@ -180,5 +180,5 @@ if __name__ == '__main__':
         window_size=300,
         size_limit=10_000,
         word_filter_rule='all',
-        # word_filter_rule=lambda w: w.lower() >= 'koncept',
+        # word_filter_rule=lambda w: w.lower() == 'rå och rör',
     )

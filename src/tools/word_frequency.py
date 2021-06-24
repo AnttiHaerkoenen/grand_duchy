@@ -11,7 +11,7 @@ from src.tools.utils import text_file_generator, read_word_list, retry
 def get_frequency(
         data: str,
         rule: str,
-        wordlist: str,
+        wordlist: Path,
 ):
     texts = text_file_generator(data, rule)
     words = read_word_list(wordlist)
