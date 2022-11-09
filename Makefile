@@ -25,6 +25,10 @@ requirements: test_environment
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 
+## Download kwics and frequencies from Korp
+query:
+	$(PYTHON_INTERPRETER) src/tools/api_query.py /home/antth/gd_data/processed wordlists https://korp.csc.fi/cgi-bin/korp.cgi --first-year 1820 --last-year 1910 -e 1828 -e 1843
+
 ## Make Dataset
 data: requirements
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed

@@ -14,3 +14,6 @@ def make_kwic_table(
             html.Td(data.iloc[i][col]) for col in data.columns
         ]) for i in range(min(len(data), max_rows))]
     )
+
+if __name__ == "__main__":
+    pass

@@ -1,12 +1,14 @@
 from pathlib import Path
 import time
+import logging
 
 import pandas as pd
 import requests
 from requests.exceptions import ConnectionError, HTTPError
+import click
 
-from src.tools.utils import read_word_list, retry
-from src.tools.exceptions import EmptyDataFrameError
+from utils import read_word_list, retry
+from exceptions import EmptyDataFrameError
 
 HEADERS = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '
@@ -19,7 +21,7 @@ def combine_regex_and_lemma_df(
         *,
         lemma_df: pd.DataFrame,
         regex_df: pd.DataFrame,
-):
+) -> pd.DataFrame:
     if lemma_df.empty and regex_df.empty:
         raise EmptyDataFrameError
 
@@ -62,13 +64,14 @@ def combine_regex_and_lemma_df(
 def make_request(
         url,
         query_params,
+        logger: logging.Logger,
         retries=10,
         timeout=120,
 ):
-    print(f"Making query {query_params.get('cqp', query_params)}")
+    logger.info(f"Making query {query_params.get('cqp', query_params)}")
 
     for i in range(1, retries + 1):
-        print(f"Attempt {i}")
+        logger.info(f"Attempt {i}")
         try:
             req = requests.get(
                 url=url,
@@ -77,13 +80,13 @@ def make_request(
                 params=query_params,
             )
             req.raise_for_status()
-            print("Success!")
+            logger.info("Success!")
             return req.json()
         except ConnectionError as e:
-            print(f"Connection error: {e}")
+            logger.exception(f"Connection Error: {e}")
             continue
         except HTTPError as e:
-            print(f"HTTP Error: {e}")
+            logger.exception(f"HTTP Error: {e}")
             continue
 
     return {
@@ -97,6 +100,7 @@ def query(
         regex: str,
         url: str,
         corpora: dict,
+        logger: logging.Logger,
         start: int = 0,
         end: int = 10,
         use_lemma: bool = True,
@@ -118,9 +122,9 @@ def query(
     else:
         query_params['cqp'] = f'[word="{regex}"]'
 
-    result = make_request(url=url, query_params=query_params)
+    result = make_request(url=url, query_params=query_params, logger=logger)
 
-    freq = {y: result['corpus_hits'].get(c, None) for y, c in corpora.items()}
+    freq = pd.Series({y: result['corpus_hits'].get(c, None) for y, c in corpora.items()})
 
     kwic = []
 
@@ -157,6 +161,7 @@ def query(
 def query_totals(
         url: str,
         corpora: dict,
+        logger: logging.Logger,
 ):
     query_params = {
         'command': 'info',
@@ -166,6 +171,7 @@ def query_totals(
     result = make_request(
         url=url,
         query_params=query_params,
+        logger=logger,
     )
     corpora_info = result['corpora']
 
@@ -180,138 +186,144 @@ def query_totals(
 
 
 @retry()
-def save_frequencies(
+def get_and_save_results(
         regex_dict: dict,
-        output_dir: Path,
+        output_fp: Path,
         korp_url: str,
         corpora: dict,
+        kwic_or_freq: str,
+        logger: logging.Logger,
         **params,
 ) -> None:
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_fp.mkdir(parents=True, exist_ok=True)
+
+    freq = kwic_or_freq in ("freq", "both")
+    kwic = kwic_or_freq in ("kwic", "both")
 
     freqs_lemma = {}
     freqs_regex = {}
 
+    if kwic:
+        kwic_fp = output_fp / "kwic"
+        kwic_fp.mkdir(exist_ok=True)
+    
+    if freq:
+        freq_fp = output_fp / "frequencies"
+        freq_fp.mkdir(exist_ok=True)
+
+    logger.info("Iterating over words")
+
     for word, regex in regex_dict.items():
         word = word.casefold()
 
-        freq_lemma, _ = query(
+        logger.info(f"Making query for {word}")
+
+        freq_lemma, kwic_lemma = query(
             word=word,
             regex=regex,
             url=korp_url,
             corpora=corpora,
             use_lemma=True,
+            logger=logger,
             **params
         )
 
-        freqs_lemma[word] = freq_lemma
-
-        freq_regex, _ = query(
+        freq_regex, kwic_regex = query(
             word=word,
             regex=regex,
             url=korp_url,
             corpora=corpora,
             use_lemma=False,
+            logger=logger,
             **params
         )
 
         freqs_regex[word] = freq_regex
+        freqs_lemma[word] = freq_lemma
 
-    data_lemma = pd.DataFrame.from_dict(freqs_lemma)
-    data_regex = pd.DataFrame.from_dict(freqs_regex)
+        if not kwic:
+            continue
 
-    data_totals = pd.Series(query_totals(korp_url, corpora)).sort_index()
-    data_totals = data_totals.rename(columns=lambda w: w.replace(' ', '_') if w != 'Unnamed: 0' else w)
+        kwic_regex_cleaned = pd.DataFrame.from_dict(kwic_regex).drop_duplicates('url')
+        kwic_lemma_cleaned = pd.DataFrame.from_dict(kwic_lemma).drop_duplicates('url')
 
-    data_lemma_relative = data_lemma.div(data_totals, axis=0) * 100_000
-    data_regex_relative = data_regex.div(data_totals, axis=0) * 100_000
-
-    data_lemma['year'] = data_lemma.index
-    data_regex['year'] = data_regex.index
-    data_lemma_relative['year'] = data_lemma_relative.index
-    data_regex_relative['year'] = data_regex_relative.index
-
-    data_lemma.to_csv(output_dir / 'lemma_abs.csv')
-    data_regex.to_csv(output_dir / 'regex_abs.csv')
-    data_lemma_relative.to_csv(output_dir / 'lemma_rel.csv')
-    data_regex_relative.to_csv(output_dir / 'regex_rel.csv')
-
-
-@retry()
-def save_kwics(
-        regex_dict: dict,
-        output_dir: Path,
-        korp_url: str,
-        corpora: dict,
-        **params,
-) -> None:
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    for word, regex in regex_dict.items():
-        word = word.casefold()
-
-        _, kwic_lemma = query(
-            word=word,
-            regex=regex,
-            url=korp_url,
-            corpora=corpora,
-            use_lemma=True,
-            **params
-        )
-
-        kwic_lemma = pd.DataFrame.from_dict(kwic_lemma).drop_duplicates('url')
-
-        _, kwic_regex = query(
-            word=word,
-            regex=regex,
-            url=korp_url,
-            corpora=corpora,
-            use_lemma=False,
-            **params
-        )
-
-        kwic_regex = pd.DataFrame.from_dict(kwic_regex).drop_duplicates('url')
+        logger.info(f"Regex results: {kwic_regex_cleaned.shape[0]}")
+        logger.info(f"Lemma results: {kwic_lemma_cleaned.shape[0]}")
 
         try:
             kwic_data = combine_regex_and_lemma_df(
-                regex_df=kwic_regex,
-                lemma_df=kwic_lemma,
+                regex_df=kwic_regex_cleaned,
+                lemma_df=kwic_lemma_cleaned,
             )
-            kwic_data.to_csv(output_dir / f'{word}.csv')
+            kwic_data.to_csv(kwic_fp / f'{word}.csv')
+            logger.info(f'{word} saved to file')
         except EmptyDataFrameError:
-            print(f'No data to save for {word}.')
+            logger.exception(f'No data to save for {word}.')
+
+    if kwic:
+        logger.info(f"Keywords-in-context saved to {kwic_fp}")
+
+    if freq:
+        data_lemma = pd.DataFrame(freqs_lemma)
+        data_regex = pd.DataFrame(freqs_regex)
+
+        data_totals = pd.Series(query_totals(korp_url, corpora, logger=logger)).sort_index()
+        # data_totals = data_totals.rename(lambda w: w.replace(' ', '_') if w != 'Unnamed: 0' else w)
+
+        logger.info("Calculating relative frequencies")
+        data_lemma_relative = data_lemma.div(data_totals, axis=0) * 100_000
+        data_regex_relative = data_regex.div(data_totals, axis=0) * 100_000
+
+        data_lemma['year'] = data_lemma.index
+        data_regex['year'] = data_regex.index
+        data_lemma_relative['year'] = data_lemma_relative.index
+        data_regex_relative['year'] = data_regex_relative.index
+
+        logger.info("Saving frequency data to csv files")
+        data_lemma.to_csv(freq_fp / 'lemma_abs.csv')
+        data_regex.to_csv(freq_fp / 'regex_abs.csv')
+        data_lemma_relative.to_csv(freq_fp / 'lemma_rel.csv')
+        data_regex_relative.to_csv(freq_fp / 'regex_rel.csv')
+        logger.info(f"Frequencies saved to {freq_fp}")
+
+
+@click.command()
+@click.argument("output_dir", type=click.Path(exists=True))
+@click.argument("wordlist_dir", type=click.Path(exists=True))
+@click.argument("korp_url", type=click.STRING)
+@click.option("--kwic-or-freq", type=click.Choice(['kwic', 'freq', 'both'], case_sensitive=False), default='both')
+@click.option("--first-year", type=click.INT, help="first year to search")
+@click.option("--last-year", type=click.INT, help="last year to search")
+@click.option("-e", "--excluded", type=click.INT, help="excluded years", multiple=True)
+def main(output_dir, wordlist_dir, korp_url, kwic_or_freq, first_year, last_year, excluded,):
+    """
+    Makes lemma or regex queries from korp interface 
+    """
+    logger = logging.getLogger(__name__)
+    output_fp = Path(output_dir)
+    wordlist_fp = Path(wordlist_dir)
+
+    logger.info(f"Reading words from {wordlist_dir}")
+    words = read_word_list(wordlist_fp / 'wordlist_fi_newspapers.csv')
+    words = {k:v for k, v in words.items() if k=="demokratia"}
+
+    years = range(first_year, last_year + 1)
+    corpora = {y: f"KLK_FI_{y}" for y in years if y not in excluded}
+
+    get_and_save_results(
+        regex_dict=words,
+        output_fp=output_fp,
+        korp_url=korp_url,
+        corpora=corpora,
+        kwic_or_freq=kwic_or_freq,
+        start=0,
+        end=10_000,
+        logger=logger,
+    )
 
 
 if __name__ == '__main__':
-    wordlist_dir = Path('../../wordlists')
-    output_dir = Path.home() / 'gd_data/processed'
+    log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    logging.basicConfig(level=logging.INFO, format=log_fmt)
 
-    words = read_word_list(wordlist_dir / 'wordlist_fi_newspapers.csv')
-
-    years = range(1820, 1911)
-    corpora = {y: f"KLK_FI_{y}" for y in years if y not in (1828, 1843)}
-
-    # print("Test run:")
-    # freq, kwic = query(
-    #     word='keisari',
-    #     regex='(K|k)eisar.+',
-    #     url='https://korp.csc.fi/cgi-bin/korp.cgi',
-    #     corpora=corpora,
-    #     use_lemma=True,
-    # )
-
-    save_kwics(
-        regex_dict=words,
-        output_dir=output_dir / 'kwic_fi_newspapers',
-        korp_url='https://korp.csc.fi/cgi-bin/korp.cgi',
-        corpora=corpora,
-        start=0,
-        end=10_000,
-    )
-
-    save_frequencies(
-        regex_dict=words,
-        output_dir=Path('../../data/processed') / 'frequencies_fi_newspapers',
-        korp_url='https://korp.csc.fi/cgi-bin/korp.cgi',
-        corpora=corpora,
-    )
+    main()

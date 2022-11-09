@@ -49,7 +49,7 @@ Historioitsija,hi(s|f)(t|f)(o|a)(r|c)(i|j)(a|o)(i|j)(t|f)(i|j|ij)(a|o)
 Hyöty,h(y|h)(o|ö|a|ä)(t|f)y
 Idea,(i|j)(D|b|h)(e|c)(a|o)
 Ihminen,(i|j)(h|b|d)(m|w)in(e|c)n
-Ihmis-,(i|j)(h|b|d)(m|w)i(s|f)
+Ihmis,(i|j)(h|b|d)(m|w)i(s|f)
 Inhimillinen,(i|j)n(h|b|d)i(m|w)il+in(e|c)
 Intellektuelli,(i|j)n(t|f)(e|c)l+(e|c)(k|f)(t|f)u(e|c)l+i
 Intressi,(i|j)(n|u)(t|f)(r|c)(e|c)(s+|f+)i
@@ -87,8 +87,8 @@ Kieli,(k|f)i+(e|c)li
 Kirjoitus,(k|f)i(r|c)(i|j|ij)o(i|j|ij)(t|f)u
 Kolkka,(k|f)(o|a)l(kk|hh+)(a|o)
 Komento,(k|f)(o|a)(m|w)(e|c)n(t|f)(a|o)
-Kommunism,kommunism
-Konservatism,konservatism
+Kommunism,(k|f)(o|a)(m|w)(m|w)un(i|j)s(m|w)
+Konservatism,(k|f)(o|a)nservatism
 Kotimaa,(k|f)o(t|f)ima+
 Kotimainen,(k|f)o(t|f)ima+in(e|c)
 Koulu,(k|f)(o|a)ulu
