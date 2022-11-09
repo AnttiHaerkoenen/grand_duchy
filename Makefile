@@ -28,6 +28,7 @@ requirements: test_environment
 ## Download kwics and frequencies from Korp
 query:
 	$(PYTHON_INTERPRETER) src/tools/api_query.py /home/antth/gd_data/processed wordlists https://korp.csc.fi/cgi-bin/korp.cgi --first-year 1820 --last-year 1910 -e 1828 -e 1843
+	mv /home/antth/gd_data/processed/frequencies/*.csv data/processed/frequencies_fi_newspapers
 
 ## Make Dataset
 data: requirements

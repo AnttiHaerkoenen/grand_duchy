@@ -305,7 +305,6 @@ def main(output_dir, wordlist_dir, korp_url, kwic_or_freq, first_year, last_year
 
     logger.info(f"Reading words from {wordlist_dir}")
     words = read_word_list(wordlist_fp / 'wordlist_fi_newspapers.csv')
-    words = {k:v for k, v in words.items() if k=="demokratia"}
 
     years = range(first_year, last_year + 1)
     corpora = {y: f"KLK_FI_{y}" for y in years if y not in excluded}
