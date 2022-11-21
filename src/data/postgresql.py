@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Sequence
 import time
+import logging
 
 import pandas as pd
 from sqlalchemy import create_engine
@@ -17,7 +18,7 @@ def retry(retries=10, timeout=5):
         def inner(*args, **kwargs):
             for i in range(retries):
                 if i > 0:
-                    print(f'Retrying, attempt {i}')
+                    print(f'Retrying, attempt {i + 1}')
                 try:
                     result = f(*args, **kwargs)
                 except (ProgrammingError, OperationalError) as e:
@@ -111,12 +112,12 @@ def create_index(engine: Engine, directory: str):
 
 if __name__ == '__main__':
     kwic_dirs = (
-        'kwic_sv_riksdag',
-        # 'kwic_fi_newspapers',
+        # 'kwic_sv_riksdag',
+        'kwic_fi_newspapers',
     )
     data_dir = Path.home() / 'gd_data/processed'
 
-    with open('../../secrets') as fopen:
+    with open('secrets') as fopen:
         database_url = fopen.read()
 
     populate_database(
