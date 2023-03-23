@@ -34,6 +34,11 @@ query:
 data: requirements
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
 
+## Download xml data from riksdagstryck and convert to txt
+download:
+	# wget -r -np -l 5 -e robots=off  https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/xml/
+	$(PYTHON_INTERPRETER) src/data/mass_convert.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/processed/riksdagstryck/
+
 ## Upload data to pg db
 upload:
 	$(PYTHON_INTERPRETER) src/data/postgresql
