@@ -9,6 +9,8 @@ import xmltodict
 
 def xml_line_generator(xml):
     for page in xml['document']['page']:
+        if 'block' not in page:
+            continue
         for block in page['block']:
             if isinstance(block, str):
                 continue
@@ -25,6 +27,8 @@ def xml_line_generator(xml):
                             continue
                         if isinstance(line['formatting'], list):
                             yield ' '.join([lang['#text'] for lang in line['formatting']])
+                        if '#text' not in line['formatting']:
+                            continue
                         else:
                             yield line['formatting']['#text']
 

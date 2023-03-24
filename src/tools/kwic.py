@@ -1,11 +1,39 @@
 import os
 import re
 from pathlib import Path
-from typing import Callable, Union
+from typing import Callable, Union, Generator
+import logging
 
 import pandas as pd
+from pandas import DataFrame
+import click
 
-from src.tools.utils import text_file_generator, read_word_list
+
+def text_file_generator(
+        data_path: Path,
+        rule: str,
+) -> Generator:
+    if not data_path.exists():
+        raise FileNotFoundError(f"Specified data path {data_path} does not exist.")
+
+    paths = list(data_path.rglob(rule))
+    years = [re.findall(r'\d{4}', path.name)[0] for path in paths]
+
+    for path, year in sorted(zip(paths, years), key=lambda x: x[1]):
+        text = path.read_text()
+        yield path, year, text
+
+
+def read_word_list(file):
+    data = pd.read_csv(str(file), header=None)
+    data.columns = 'word regex'.split()
+    data.dropna(inplace=True)
+    data.sort_values(by='word', inplace=True)
+
+    words = data['word']
+    regex = data['regex']
+
+    return {w.casefold(): r for w, r in zip(words, regex)}
 
 
 def get_kwic(
@@ -15,11 +43,8 @@ def get_kwic(
         window_size: int,
 ):
     rows = []
-
-    print(f'Processing file {file.name}')
-
+    logging.info(f'Processing file {file.name}')
     text = file.read_text()
-
     for w, r in regex_dict.items():
         matches = r.finditer(text)
 
@@ -35,7 +60,6 @@ def get_kwic(
                 end = len(text) - 1
 
             context = text[start:end].replace('\n', ' ')
-
             row = {
                 'file': file.stem,
                 'year': year,
@@ -50,17 +74,15 @@ def get_kwic(
 
 def get_kwic_for_word(
         *,
-        data: Path,
+        data_path: Path,
         rule: str,
         term: str,
         regex: re.Pattern,
         window_size: int,
         size_limit: int,
-):
-    texts = text_file_generator(data, rule)
-
-    print(f'Reading data for {term}')
-
+) -> DataFrame:
+    texts = text_file_generator(data_path, rule)
+    logging.info(f'Searching {data_path} for {term}')
     rows = []
 
     for file, year, text in texts:
@@ -122,7 +144,7 @@ def save_kwic_by_word(
             continue
 
         kwic_term = get_kwic_for_word(
-            data=input_dir,
+            data_path=input_dir,
             rule=rule,
             term=term,
             regex=regex,
@@ -133,6 +155,7 @@ def save_kwic_by_word(
         if not kwic_term.empty:
             kwic_term.drop(columns=['index', 'keyword'], inplace=True)
 
+        logging.info(f'Saving data: {term}')
         kwic_term.to_csv(output_dir / f"{term.replace(' ', '_')}.csv")
 
 
@@ -142,7 +165,7 @@ def get_kwic_all(
         rule: str,
         wordlist: str,
         window_size: int,
-):
+) -> DataFrame:
     texts = text_file_generator(data, rule)
     words = read_word_list(wordlist)
 
@@ -166,19 +189,42 @@ def get_kwic_all(
     return pd.concat(files, axis=0).sort_values('keyword').reset_index()
 
 
-if __name__ == '__main__':
-    input_dir = Path.home() / 'gd_data/external/'
-    output_dir = Path.home() / 'gd_data/processed/kwic_sv_riksdag'
-    wordlist = Path('../../wordlists/wordlist_sv_riksdag.csv')
-    rule = '*.txt'
+@click.command()
+@click.argument('input_filepath', type=click.Path(exists=True))
+@click.argument('output_filepath', type=click.Path())
+@click.argument('wordlist_filepath', type=click.Path(exists=True))
+@click.option('--window_size', type=click.IntRange(1, 1000), help='size of context window, characters, both directions')
+@click.option('--size_limit', type=click.IntRange(10, 50_000), help='maximum number of results saved in file')
+@click.option('--files', type=click.STRING, default='*.txt', help='rule to select suitable files')
+def main(
+    input_filepath, 
+    output_filepath, 
+    wordlist_filepath,
+    window_size,
+    size_limit,
+    files,
+    ):
+    """
+    Performs keywords-in-context analysis and saves results in csv files
+    """
+    logger = logging.getLogger(__name__)
+    input_dir = Path(input_filepath)
+    output_dir = Path(output_filepath)
+    wordlist = Path(wordlist_filepath)
 
     save_kwic_by_word(
         output_dir=output_dir,
         input_dir=input_dir,
-        rule=rule,
+        rule=files,
         wordlist=wordlist,
-        window_size=300,
-        size_limit=10_000,
+        window_size=window_size,
+        size_limit=size_limit,
         word_filter_rule='all',
-        # word_filter_rule=lambda w: w.lower() == 'rå och rör',
     )
+
+
+if __name__ == '__main__':
+    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    logging.basicConfig(level=logging.INFO, format=log_fmt)
+
+    main()

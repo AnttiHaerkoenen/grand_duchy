@@ -30,18 +30,23 @@ query:
 	$(PYTHON_INTERPRETER) src/tools/api_query.py /home/antth/gd_data/processed wordlists https://korp.csc.fi/cgi-bin/korp.cgi --first-year 1820 --last-year 1910 -e 1828 -e 1843
 	mv /home/antth/gd_data/processed/frequencies/*.csv data/processed/frequencies_fi_newspapers
 
-## Make Dataset
-data: requirements
-	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
+## Analyse riksdagstryck data
+riksdag:
+	# $(PYTHON_INTERPRETER) src/tools/kwic.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/riksdagstryck/ wordlists/wordlist_sv_riksdag.csv \
+	# --window_size 300 --size_limit 30_000 --files "*.txt"
+	$(PYTHON_INTERPRETER) src/tools/word_frequency.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/frequencies_sv_riksdag wordlists/wordlist_sv_riksdag.csv \
+	wordlists/riksdag_bins.csv
+
+../../gd_data/interim/riksdagstryck/:data
 
 ## Download xml data from riksdagstryck and convert to txt
-download:
-	# wget -r -np -l 5 -e robots=off  https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/xml/
-	$(PYTHON_INTERPRETER) src/data/mass_convert.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/processed/riksdagstryck/
+data: ../../gd_data/interim/riksdagstryck/
+	# wget -r -np -l 5 -O ../../gd_data/raw/ -e robots=off https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/xml/
+	$(PYTHON_INTERPRETER) src/data/mass_convert.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/interim/riksdagstryck/
 
 ## Upload data to pg db
 upload:
-	$(PYTHON_INTERPRETER) src/data/postgresql
+	$(PYTHON_INTERPRETER) src/data/postgresql.py
 
 ## Delete all compiled Python files
 clean:
