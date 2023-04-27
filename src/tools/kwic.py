@@ -29,10 +29,8 @@ def read_word_list(file):
     data.columns = 'word regex'.split()
     data.dropna(inplace=True)
     data.sort_values(by='word', inplace=True)
-
     words = data['word']
     regex = data['regex']
-
     return {w.casefold(): r for w, r in zip(words, regex)}
 
 
@@ -47,18 +45,14 @@ def get_kwic(
     text = file.read_text()
     for w, r in regex_dict.items():
         matches = r.finditer(text)
-
         for m in matches:
             start, end = m.span()
             start = start - window_size
             if start < 0:
                 start = 0
-
             end = end + window_size
-
             if end >= len(text):
                 end = len(text) - 1
-
             context = text[start:end].replace('\n', ' ')
             row = {
                 'file': file.stem,
@@ -86,10 +80,8 @@ def get_kwic_for_word(
     rows = []
 
     for file, year, text in texts:
-
         if len(rows) >= size_limit:
             break
-
         matches = regex.finditer(text)
 
         for m in matches:
@@ -97,21 +89,16 @@ def get_kwic_for_word(
             start = start - window_size
             if start < 0:
                 start = 0
-
             end = end + window_size
-
             if end >= len(text):
                 end = len(text) - 1
-
             context = text[start:end].replace('\n', ' ')
-
             row = {
                 'file': file.stem,
                 'year': year,
                 'keyword': term,
                 'context': context,
             }
-
             rows.append(row)
 
     if not rows:
@@ -132,7 +119,6 @@ def save_kwic_by_word(
 ):
     output_dir.mkdir(parents=True, exist_ok=True)
     words = read_word_list(wordlist)
-
     regex = {
         word: re.compile(regexpr, flags=re.IGNORECASE)
         for word, regexpr
@@ -142,7 +128,10 @@ def save_kwic_by_word(
     for term, regex in regex.items():
         if word_filter_rule != 'all' and not word_filter_rule(term):
             continue
-
+        output_file = output_dir / f"{term.replace(' ', '_')}.csv"
+        if output_file.is_file():
+            logging.info(f"{output_file} exists, skipping {term}")
+            continue
         kwic_term = get_kwic_for_word(
             data_path=input_dir,
             rule=rule,
@@ -151,12 +140,10 @@ def save_kwic_by_word(
             window_size=window_size,
             size_limit=size_limit,
         )
-
         if not kwic_term.empty:
             kwic_term.drop(columns=['index', 'keyword'], inplace=True)
-
         logging.info(f'Saving data: {term}')
-        kwic_term.to_csv(output_dir / f"{term.replace(' ', '_')}.csv")
+        kwic_term.to_csv(output_file)
 
 
 def get_kwic_all(
@@ -175,7 +162,7 @@ def get_kwic_all(
     }
     files = []
 
-    for file, year, text in texts:
+    for file, year, _ in texts:
         kwic = get_kwic(
             file=file,
             regex_dict=regex,
