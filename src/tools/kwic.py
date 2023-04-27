@@ -168,13 +168,11 @@ def get_kwic_all(
 ) -> DataFrame:
     texts = text_file_generator(data, rule)
     words = read_word_list(wordlist)
-
     regex = {
         word: re.compile(regexpr, flags=re.IGNORECASE)
         for word, regexpr
         in words.items()
     }
-
     files = []
 
     for file, year, text in texts:

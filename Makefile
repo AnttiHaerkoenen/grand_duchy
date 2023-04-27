@@ -32,8 +32,8 @@ query:
 
 ## Analyse riksdagstryck data
 riksdag:
-	# $(PYTHON_INTERPRETER) src/tools/kwic.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/riksdagstryck/ wordlists/wordlist_sv_riksdag.csv \
-	# --window_size 300 --size_limit 30_000 --files "*.txt"
+	$(PYTHON_INTERPRETER) src/tools/kwic.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/kwic_sv_riksdag wordlists/wordlist_sv_riksdag.csv \
+	--window_size 300 --size_limit 50_000 --files "*.txt"
 	$(PYTHON_INTERPRETER) src/tools/word_frequency.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/frequencies_sv_riksdag wordlists/wordlist_sv_riksdag.csv \
 	wordlists/riksdag_bins.csv
 

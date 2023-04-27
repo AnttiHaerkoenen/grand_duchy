@@ -7,30 +7,17 @@ import click
 import xmltodict
 
 
-def xml_line_generator(xml):
-    for page in xml['document']['page']:
-        if 'block' not in page:
-            continue
-        for block in page['block']:
-            if isinstance(block, str):
-                continue
-            if 'text' not in block:
-                continue
-            for text in block['text']:
-                if isinstance(text, str):
-                    continue
-                for par in text['par']:                       
-                    if isinstance(par, str):
-                        continue
-                    for line in par['line']:
-                        if isinstance(line, str):
-                            continue
-                        if isinstance(line['formatting'], list):
-                            yield ' '.join([lang['#text'] for lang in line['formatting']])
-                        if '#text' not in line['formatting']:
-                            continue
-                        else:
-                            yield line['formatting']['#text']
+def xml_line_generator(xml: OrderedDict):
+    if not xml:
+        return
+    for k, v in xml.items():
+        if isinstance(v, list):
+            for element in v:
+                yield from xml_line_generator(element)
+        if isinstance(v, OrderedDict):
+            yield from xml_line_generator(v)
+        if k == "#text":
+            yield v
 
 
 def xml_converter(input_filepath, output_filepath, logger):
