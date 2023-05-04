@@ -37,12 +37,14 @@ riksdag:
 	$(PYTHON_INTERPRETER) src/tools/word_frequency.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/frequencies_sv_riksdag wordlists/wordlist_sv_riksdag.csv \
 	wordlists/riksdag_bins.csv
 
-../../gd_data/interim/riksdagstryck/:data
+../../gd_data/interim/riksdagstryck/: data
 
-## Download xml data from riksdagstryck and convert to txt
-data: ../../gd_data/interim/riksdagstryck/
-	# wget -r -np -l 5 -O ../../gd_data/raw/ -e robots=off https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/xml/
-	$(PYTHON_INTERPRETER) src/data/mass_convert.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/interim/riksdagstryck/
+## Download pdf + xml data from riksdagstryck and convert to txt
+data:
+	# wget -r -np -l 5 ~/gd_data/raw/ -e robots=off https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/xml/
+	# wget -r -np -l 5 ~/gd_data/raw/ -e robots=off https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/
+	$(PYTHON_INTERPRETER) src/data/batch_convert_pdf_to_txt.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/interim/riksdagstryck/
+	$(PYTHON_INTERPRETER) src/data/batch_convert_xml_to_txt.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/interim/riksdagstryck/
 
 ## Upload data to pg db
 upload:

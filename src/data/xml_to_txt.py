@@ -20,7 +20,8 @@ def xml_line_generator(xml: OrderedDict):
             yield v
 
 
-def xml_converter(input_filepath, output_filepath, logger):
+def xml_converter(input_filepath, output_filepath):
+    logger = logging.getLogger(__name__)
     logger.info(f'Reading {input_filepath}')
     xml = xmltodict.parse(input_filepath.read_text())
     lines = xml_line_generator(xml)
@@ -37,16 +38,11 @@ def main(input_filepath, output_filepath):
     """
     Extracts text from a OCRd XML-file
     """
-    logger = logging.getLogger(__name__)
     if 'xml' not in input_filepath:
         raise ValueError('File must be in xml format')
     inf = Path(input_filepath)
     outf = Path(output_filepath)
-    xml_converter(
-        inf,
-        outf, 
-        logger,
-    )
+    xml_converter(inf, outf)
 
 
 if __name__ == '__main__':
