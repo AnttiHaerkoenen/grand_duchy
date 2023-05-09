@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+import os
 from pathlib import Path
 
 import click
@@ -18,7 +19,7 @@ def main(input_filepath, output_filepath):
     logger.info(f'Reading files from {input_filepath}')
     input_fp = Path(input_filepath)
     output_fp = Path(output_filepath)
-    if not output_fp.exists:
+    if not output_fp.is_dir():
         output_fp.mkdir()
     xml_list = list(input_fp.glob('**/*.xml'))
     for fp in xml_list:
@@ -29,6 +30,7 @@ def main(input_filepath, output_filepath):
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
+    log_file = Path('./logs') / Path(__file__).stem
+    logging.basicConfig(filename=log_file, level=logging.INFO, format=log_fmt)
 
     main()
