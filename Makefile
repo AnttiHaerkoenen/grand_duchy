@@ -41,9 +41,9 @@ riksdag:
 
 ## Download pdf + xml data from riksdagstryck and convert to txt
 data:
-	wget -r -np -l 5 -P ../../gd_data/raw/ -e robots=off https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/xml/
+	# wget -r -np -l 5 -P ../../gd_data/raw/ -e robots=off https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/xml/
 	$(PYTHON_INTERPRETER) src/data/batch_download_pdf.py https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/ ../../gd_data/raw/ ../../gd_data/interim/riksdagstryck/
-	$(PYTHON_INTERPRETER) src/data/batch_convert_xml_to_txt.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/interim/riksdagstryck/
+	# $(PYTHON_INTERPRETER) src/data/batch_convert_xml_to_txt.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/interim/riksdagstryck/
 
 ## Upload data to pg db
 upload:

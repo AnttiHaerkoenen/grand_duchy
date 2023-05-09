@@ -28,7 +28,7 @@ def main(url, pdf_filepath, output_filepath):
     try:
         r = requests.get(url=url, headers=headers)
     except ConnectionError as e:
-        logger.error(f'Connection failed: {e}')
+        logger.error(f'Connection failed, exiting \n{e}')
         return
     soup = BeautifulSoup(r.content, features='html.parser')
     dirs = [link.get('href') for link in soup.find_all('a') if re.search('\d{4}', link.string)]
@@ -39,9 +39,11 @@ def main(url, pdf_filepath, output_filepath):
         logger.info(f'Downloading pdfs from {dir_}')
         os.system(f'wget -r -np -l 1 ~/gd_data/raw/ -e robots=off {dir_url}')
         logger.info(f'Converting pdfs from {dir_url} to xml in {output_filepath}')
-        for pdf_fp in Path(dir_url).glob(f'*.pdf'):
-            xml_fp = output_filepath / f'{pdf_fp.stem}.txt'
-            xml_converter(pdf_fp, xml_fp)
+        pdf_list = Path(dir_url).glob(f'*.pdf')
+        for pdf_fp in pdf_list:
+            txt_fp = output_filepath / f'{pdf_fp.stem}.txt'
+            os.system(f'pdftotext --enc UTF-8 {pdf_fp} {txt_fp}')
+            logger.info(f'{pdf_fp} converted and saved to {txt_fp}')
         logger.info(f'Removing dir {dir_url}')
         shutil.rmtree(Path('weburn.kb.se/riks/ståndsriksdagen/pdf') / dir_)
     logger.info('Download and transform complete')

@@ -20,8 +20,7 @@ def xml_line_generator(xml: OrderedDict):
             yield v
 
 
-def xml_converter(input_filepath, output_filepath):
-    logger = logging.getLogger(__name__)
+def xml_converter(input_filepath, output_filepath, logger):
     logger.info(f'Reading {input_filepath}')
     xml = xmltodict.parse(input_filepath.read_text())
     lines = xml_line_generator(xml)

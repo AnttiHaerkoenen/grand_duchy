@@ -1,0 +1,31 @@
+2023-05-09 15:59:50,735 - __main__ - INFO - Downloading a list of directories from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf
+2023-05-09 15:59:51,783 - __main__ - INFO - Downloading pdfs from Borgarprotokoll_1850-51__/
+2023-05-09 16:00:11,295 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/Borgarprotokoll_1850-51__/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:00:11,295 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/Borgarprotokoll_1850-51__/
+2023-05-09 16:00:11,330 - __main__ - INFO - Downloading pdfs from bg_1654-1714__/
+2023-05-09 16:00:56,682 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1654-1714__/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:00:56,682 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1654-1714__/
+2023-05-09 16:00:56,717 - __main__ - INFO - Downloading pdfs from bg_1719-1720__/
+2023-05-09 16:01:50,006 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1719-1720__/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:01:50,006 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1719-1720__/
+2023-05-09 16:01:50,052 - __main__ - INFO - Downloading pdfs from bg_1719-1866_reg_/
+2023-05-09 16:02:07,855 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1719-1866_reg_/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:02:07,855 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1719-1866_reg_/
+2023-05-09 16:02:07,873 - __main__ - INFO - Downloading pdfs from bg_1723__/
+2023-05-09 16:03:16,269 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1723__/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:03:16,269 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1723__/
+2023-05-09 16:03:16,338 - __main__ - INFO - Downloading pdfs from bg_1726-1727__/
+2023-05-09 16:04:39,389 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1726-1727__/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:04:39,390 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1726-1727__/
+2023-05-09 16:04:39,458 - __main__ - INFO - Downloading pdfs from bg_1731__/
+2023-05-09 16:05:38,007 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1731__/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:05:38,007 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1731__/
+2023-05-09 16:05:38,064 - __main__ - INFO - Downloading pdfs from bg_1734__/
+2023-05-09 16:06:01,375 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1734__/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:06:01,375 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1734__/
+2023-05-09 16:06:01,398 - __main__ - INFO - Downloading pdfs from bg_1738-1739__/
+2023-05-09 16:06:02,257 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1738-1739__/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:06:02,257 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1738-1739__/
+2023-05-09 16:06:02,258 - __main__ - INFO - Downloading pdfs from bg_1740-1741_1_/
+2023-05-09 16:06:02,469 - __main__ - INFO - Converting pdfs from https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1740-1741_1_/ to xml in ../../gd_data/interim/riksdagstryck/
+2023-05-09 16:06:02,470 - __main__ - INFO - Removing dir https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/bg_1740-1741_1_/
