@@ -97,23 +97,22 @@ def get_frequency_by_year(
     frequencies = []
     bins = pd.read_csv(bins_file)
 
-    for year, bin in bins.itertuples(index=False):
+    for year, bin_ in bins.itertuples(index=False):
         logger.info(f'Processing year {year}')
 
         freq = get_frequency(
             data=data,
-            rule=f"*_{bin}_*.txt",
+            rule=f"*_{bin_}_*.txt",
             wordlist=wordlist,
         )
 
         if freq.empty:
             continue
 
-        freq = freq.drop(columns=['file'])
-        freq = freq.sum()
-        freq.name = bin
-        freq['year'] = year
-        frequencies.append(freq)
+        freq_sum = freq.drop(columns=['file']).sum()
+        freq_sum.name = bin_
+        freq_sum['year'] = year
+        frequencies.append(freq_sum)
 
     result = pd.concat(frequencies, axis=1).T
     result = result.rename(columns=lambda w: w.replace(' ', '_') if w != 'Unnamed: 0' else w)
