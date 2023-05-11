@@ -92,12 +92,13 @@ def get_frequency_by_year(
         data,
         bins_file: Path,
         wordlist: Path,
+        logger: logging.Logger,
 ) -> DataFrame:
     frequencies = []
     bins = pd.read_csv(bins_file)
 
     for year, bin in bins.itertuples(index=False):
-        logging.debug(f'Processing year {year}')
+        logger.info(f'Processing year {year}')
 
         freq = get_frequency(
             data=data,
@@ -140,22 +141,27 @@ def main(
     output_fp.mkdir(exist_ok=True)
     wordlist_fp = Path(wordlist_filepath)
     bins_fp = Path(bins_filepath)
+    logger.info('Wordlist read')
 
     absolutes = get_frequency_by_year(
         data=input_fp,
         bins_file=bins_fp,
         wordlist=wordlist_fp,
+        logger=logger,
     )
     words = absolutes['words']
     absolutes.to_csv(output_fp / 'all_abs.csv')
+    logger.info(f'Saving absolute frequencies to file {output_fp}/all_abs.csv')
     freq = absolutes.drop(columns=['year', 'words'])
     freq = freq[freq.columns].div(words, axis='index') * 100_000
     freq['year'] = absolutes['year']
+    logger.info(f'Saving relative frequencies to file {output_fp}/all_rel.csv')
     freq.to_csv(output_fp / 'all_rel.csv')
 
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
+    log_file = Path('./logs') / Path(__file__).stem
+    logging.basicConfig(filename=log_file, level=logging.INFO, format=log_fmt)
 
     main()

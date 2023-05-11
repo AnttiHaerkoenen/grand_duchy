@@ -154,7 +154,8 @@ def main() -> None:
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
+    log_file = Path('./logs') / Path(__file__).stem
+    logging.basicConfig(level=logging.INFO, format=log_fmt, filename=log_file)
 
     main()
     
