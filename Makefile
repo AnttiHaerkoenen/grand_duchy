@@ -20,35 +20,6 @@ endif
 # COMMANDS                                                                      #
 #################################################################################
 
-## Install Python Dependencies
-requirements: test_environment
-	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
-
-## Download kwics and frequencies from Korp
-query:
-	$(PYTHON_INTERPRETER) src/tools/api_query.py /home/antth/gd_data/processed wordlists https://korp.csc.fi/cgi-bin/korp.cgi --first-year 1820 --last-year 1910 -e 1828 -e 1843
-	mv /home/antth/gd_data/processed/frequencies/*.csv data/processed/frequencies_fi_newspapers
-
-## Analyse riksdagstryck data
-riksdag:
-	$(PYTHON_INTERPRETER) src/tools/kwic.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/kwic_sv_riksdag wordlists/wordlist_sv_riksdag.csv \
-	--window_size 300 --size_limit 50_000 --files "*.txt"
-	$(PYTHON_INTERPRETER) src/tools/word_frequency.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/frequencies_sv_riksdag wordlists/wordlist_sv_riksdag.csv \
-	wordlists/riksdag_bins.csv
-
-../../gd_data/interim/riksdagstryck/: data
-
-## Download pdf + xml data from riksdagstryck and convert to txt
-data:
-	# wget -r -np -l 5 -P ../../gd_data/raw/ -e robots=off https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/xml/
-	$(PYTHON_INTERPRETER) src/data/batch_download_pdf.py https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/ ../../gd_data/raw/ ../../gd_data/interim/riksdagstryck/
-	# $(PYTHON_INTERPRETER) src/data/batch_convert_xml_to_txt.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/interim/riksdagstryck/
-
-## Upload data to pg db
-upload:
-	$(PYTHON_INTERPRETER) src/data/postgresql.py
-
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
@@ -100,6 +71,35 @@ test_environment:
 # PROJECT RULES                                                                 #
 #################################################################################
 
+## Install Python Dependencies
+requirements: test_environment
+	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
+	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+
+## Download kwics and frequencies from Korp
+query:
+	$(PYTHON_INTERPRETER) src/tools/api_query.py /home/antth/gd_data/processed wordlists https://korp.csc.fi/cgi-bin/korp.cgi --first-year 1820 --last-year 1910 -e 1828 -e 1843
+	mv /home/antth/gd_data/processed/frequencies/*.csv data/processed/frequencies_fi_newspapers
+
+## Analyse riksdagstryck data
+riksdag:
+	$(PYTHON_INTERPRETER) src/tools/kwic.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/kwic_sv_riksdag wordlists/wordlist_sv_riksdag.csv \
+	--window_size 300 --size_limit 50_000 --files "*.txt"
+	$(PYTHON_INTERPRETER) src/tools/word_frequency.py ../../gd_data/interim/riksdagstryck/ ../../gd_data/processed/frequencies_sv_riksdag wordlists/wordlist_sv_riksdag.csv \
+	wordlists/riksdag_bins.csv
+
+../../gd_data/interim/riksdagstryck/: data
+
+## Download pdf + xml data from riksdagstryck and convert to txt
+data:
+	# wget -r -np -l 5 -P ../../gd_data/raw/ -e robots=off https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/xml/
+	# $(PYTHON_INTERPRETER) src/data/batch_download_pdf.py https://weburn.kb.se/riks/st%C3%A5ndsriksdagen/pdf/ ../../gd_data/raw/ \
+	# ../../gd_data/interim/riksdagstryck/ --filter roa
+	$(PYTHON_INTERPRETER) src/data/batch_convert_xml_to_txt.py ../../gd_data/raw/weburn.kb.se/ ../../gd_data/interim/riksdagstryck/
+
+## Upload data to pg db
+upload:
+	$(PYTHON_INTERPRETER) src/data/postgresql.py
 
 
 #################################################################################

@@ -24,7 +24,7 @@ def main(input_filepath, output_filepath):
     xml_list = list(input_fp.glob('**/*.xml'))
     for fp in xml_list:
         outf = output_fp / f'{fp.stem}.txt'
-        xml_converter(fp, outf)
+        xml_converter(fp, outf, logger)
     logger.info(f'Finished writing results to {output_filepath}')
 
 
